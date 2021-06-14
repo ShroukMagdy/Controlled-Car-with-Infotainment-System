@@ -111,13 +111,13 @@ void MainWindow::Move_Forward(){
     digitalWrite(MOTOR_ID1_PIN1,LOW);
 }
 void MainWindow::Move_Backward(){
-    digitalWrite(MOTOR_ID0_PIN0,LOW);
+    digitalWrite(MOTOR_ID0_PIN0,HIGH);
     digitalWrite(MOTOR_ID0_PIN1,HIGH);
-    digitalWrite(MOTOR_ID1_PIN0,LOW);
+    digitalWrite(MOTOR_ID1_PIN0,HIGH);
     digitalWrite(MOTOR_ID1_PIN1,HIGH);
 }
 void MainWindow:: Move_Right(){
-    digitalWrite(MOTOR_ID0_PIN0,HIGH);
+    digitalWrite(MOTOR_ID0_PIN0,LOW);
     digitalWrite(MOTOR_ID0_PIN1,LOW);
     digitalWrite(MOTOR_ID1_PIN0,LOW);
     digitalWrite(MOTOR_ID1_PIN1,LOW);
@@ -125,7 +125,7 @@ void MainWindow:: Move_Right(){
 void MainWindow:: Move_Left(){
     digitalWrite(MOTOR_ID0_PIN0,LOW);
     digitalWrite(MOTOR_ID0_PIN1,LOW);
-    digitalWrite(MOTOR_ID1_PIN0,HIGH);
+    digitalWrite(MOTOR_ID1_PIN0,LOW);
     digitalWrite(MOTOR_ID1_PIN1,LOW);
 }
 void MainWindow::Stop(){
