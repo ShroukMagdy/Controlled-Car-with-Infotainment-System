@@ -12,6 +12,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     QTimer *timer;
     int another_press=0;
+    int StartPress_FrontMove=0;
+    int StartPress_RearMove=0;
+    int FinalPress_FrontMove=0;
+    int FinalPress_RearMove=0;
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
@@ -29,6 +33,8 @@ private slots:
     void Move_Left();
 
     void Stop();
+    void StopFront();
+    void StopRear();
 };
 
 #endif // MAINWINDOW_H
