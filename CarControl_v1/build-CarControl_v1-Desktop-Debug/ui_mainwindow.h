@@ -14,6 +14,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -28,6 +29,7 @@ public:
     QPushButton *RIGHT_B;
     QPushButton *DOWN_B;
     QPushButton *LEFT_B;
+    QSlider *SpeedSlider;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -36,7 +38,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(346, 300);
+        MainWindow->resize(381, 300);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         UP_B = new QPushButton(centralWidget);
@@ -57,10 +59,22 @@ public:
         LEFT_B->setObjectName(QStringLiteral("LEFT_B"));
         LEFT_B->setGeometry(QRect(20, 70, 71, 61));
         LEFT_B->setCheckable(true);
+        SpeedSlider = new QSlider(centralWidget);
+        SpeedSlider->setObjectName(QStringLiteral("SpeedSlider"));
+        SpeedSlider->setGeometry(QRect(350, 30, 26, 160));
+        SpeedSlider->setFocusPolicy(Qt::StrongFocus);
+        SpeedSlider->setMaximum(3);
+        SpeedSlider->setSingleStep(1);
+        SpeedSlider->setPageStep(1);
+        SpeedSlider->setSliderPosition(0);
+        SpeedSlider->setTracking(true);
+        SpeedSlider->setOrientation(Qt::Vertical);
+        SpeedSlider->setTickPosition(QSlider::NoTicks);
+        SpeedSlider->setTickInterval(0);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 346, 29));
+        menuBar->setGeometry(QRect(0, 0, 381, 29));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

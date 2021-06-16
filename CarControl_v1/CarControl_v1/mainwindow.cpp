@@ -8,16 +8,17 @@
 #include <QDebug>
 
 /*************************************PINS*********************************/
-#define MOTOR_ID0_PIN0                  1           //PWM
-#define MOTOR_ID0_PIN1                  4           //DIR
-#define MOTOR_ID1_PIN0                  26          //PWM
-#define MOTOR_ID1_PIN1                  5           //DIR
+#define MOTOR_ID0_PWM                   1           //PWM
+#define MOTOR_ID0_DIR                   4           //DIR
+#define MOTOR_ID1_PWM                   26          //PWM
+#define MOTOR_ID1_DIR                   5           //DIR
 
-#define MOTOR_ID2_PIN0                  2           //PWM
-#define MOTOR_ID2_PIN1                  3           //DIR
+#define MOTOR_ID2_PWM                   2           //PWM
+#define MOTOR_ID2_DIR                   3           //DIR
 
-#define SPEED                           20
+#define SPEED_FACTOR                    20
 #define TIMER_TIMEOUT                   150
+#define PWM_FRONT                       60          //fixed - done for optimization of rotation
 /**************************************************************************/
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,20 +27,24 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     //initialize wiring pi and pins
     wiringPiSetup();
-    softPwmCreate(MOTOR_ID0_PIN0,0,100);
-    pinMode(MOTOR_ID0_PIN1, OUTPUT);
-    softPwmCreate(MOTOR_ID1_PIN0,0,100);
-    pinMode(MOTOR_ID1_PIN1, OUTPUT);
-    pinMode(MOTOR_ID2_PIN0, OUTPUT);
-    pinMode(MOTOR_ID2_PIN1, OUTPUT);
+    //rear motors
+    softPwmCreate(MOTOR_ID0_PWM,0,100);
+    pinMode(MOTOR_ID0_DIR, OUTPUT);
+    softPwmCreate(MOTOR_ID1_PWM,0,100);
+    pinMode(MOTOR_ID1_DIR, OUTPUT);
+    //front motor
+    softPwmCreate(MOTOR_ID2_PWM,0,100);
+    pinMode(MOTOR_ID2_DIR, OUTPUT);
 
     //initialize pins
-    softPwmWrite(MOTOR_ID0_PIN0,0);
-    digitalWrite(MOTOR_ID0_PIN1,LOW);
-    softPwmWrite(MOTOR_ID1_PIN0,0);
-    digitalWrite(MOTOR_ID1_PIN1,LOW);
-    digitalWrite(MOTOR_ID2_PIN0,LOW);
-    digitalWrite(MOTOR_ID2_PIN1,LOW);
+    //rear motors
+    softPwmWrite(MOTOR_ID0_PWM,0);
+    digitalWrite(MOTOR_ID0_DIR,LOW);
+    softPwmWrite(MOTOR_ID1_PWM,0);
+    digitalWrite(MOTOR_ID1_DIR,LOW);
+    //front motor
+    softPwmWrite(MOTOR_ID2_PWM,0);
+    digitalWrite(MOTOR_ID2_DIR,LOW);
 
     //timer instance
     timer = new QTimer;
@@ -68,6 +73,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->LEFT_B,SIGNAL(pressed()),this,SLOT(Move_Left()));
     connect(ui->LEFT_B,SIGNAL(released()),this,SLOT(StopFront()));
+    //slider speed
+    connect(ui->SpeedSlider,SIGNAL(valueChanged(int)),this,SLOT(CalculateSpeed(int)));
+
 }
 
 MainWindow::~MainWindow()
@@ -136,64 +144,64 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e){
 void MainWindow::Move_Forward(){
     //update flags , 1 means current move , other flag just +2
     if((StartPress_RearMove==0)||(StartPress_FrontMove==1)){
-    StartPress_RearMove=1;
-    StartPress_FrontMove+=2;
-    qDebug()<<"Forward";
-    qDebug() << "RearMove="<<StartPress_RearMove;
-    qDebug() << "FrontMove="<<StartPress_FrontMove;
+        StartPress_RearMove=1;
+        StartPress_FrontMove+=2;
+        qDebug()<<"Forward";
+        qDebug() << "RearMove="<<StartPress_RearMove;
+        qDebug() << "FrontMove="<<StartPress_FrontMove;
     }
 
     //rear motors
-    softPwmWrite(MOTOR_ID0_PIN0,SPEED);
-    digitalWrite(MOTOR_ID0_PIN1,LOW);
+    softPwmWrite(MOTOR_ID0_PWM,speed);
+    digitalWrite(MOTOR_ID0_DIR,LOW);
 
-    softPwmWrite(MOTOR_ID1_PIN0,SPEED);
-    digitalWrite(MOTOR_ID1_PIN1,LOW);
+    softPwmWrite(MOTOR_ID1_PWM,speed);
+    digitalWrite(MOTOR_ID1_DIR,LOW);
 }
 void MainWindow::Move_Backward(){
     //update flags , 1 means current move , other flag just +2
     if((StartPress_RearMove==0)||(StartPress_FrontMove==1)){
-    StartPress_RearMove=1;
-    StartPress_FrontMove+=2;
-    qDebug()<<"Backward";
-    qDebug() << "RearMove="<<StartPress_RearMove;
-    qDebug() << "FrontMove="<<StartPress_FrontMove;
+        StartPress_RearMove=1;
+        StartPress_FrontMove+=2;
+        qDebug()<<"Backward";
+        qDebug() << "RearMove="<<StartPress_RearMove;
+        qDebug() << "FrontMove="<<StartPress_FrontMove;
     }
 
     //rear motors
-    softPwmWrite(MOTOR_ID0_PIN0,SPEED);
-    digitalWrite(MOTOR_ID0_PIN1,HIGH);
+    softPwmWrite(MOTOR_ID0_PWM,speed);
+    digitalWrite(MOTOR_ID0_DIR,HIGH);
 
-    softPwmWrite(MOTOR_ID1_PIN0,SPEED);
-    digitalWrite(MOTOR_ID1_PIN1,HIGH);
+    softPwmWrite(MOTOR_ID1_PWM,speed);
+    digitalWrite(MOTOR_ID1_DIR,HIGH);
 }
 void MainWindow:: Move_Right(){
     //update flags , 1 means current move , other flag just +2
     if((StartPress_FrontMove==0)||(StartPress_RearMove==1)){
-    StartPress_FrontMove=1;
-    StartPress_RearMove+=2;
-    qDebug()<<"Right";
-    qDebug() << "RearMove="<<StartPress_RearMove;
-    qDebug() << "FrontMove="<<StartPress_FrontMove;
+        StartPress_FrontMove=1;
+        StartPress_RearMove+=2;
+        qDebug()<<"Right";
+        qDebug() << "RearMove="<<StartPress_RearMove;
+        qDebug() << "FrontMove="<<StartPress_FrontMove;
     }
 
     //front motor
-    digitalWrite(MOTOR_ID2_PIN0,HIGH);
-    digitalWrite(MOTOR_ID2_PIN1,LOW);
+    softPwmWrite(MOTOR_ID2_PWM,PWM_FRONT);
+    digitalWrite(MOTOR_ID2_DIR,LOW);
 }
 void MainWindow:: Move_Left(){
     //update flags , 1 means current move , other flag just +2
     if((StartPress_FrontMove==0)||(StartPress_RearMove==1)){
-    StartPress_FrontMove=1;
-    StartPress_RearMove+=2;
-    qDebug()<<"Left";
-    qDebug() << "RearMove="<<StartPress_RearMove;
-    qDebug() << "FrontMove="<<StartPress_FrontMove;
+        StartPress_FrontMove=1;
+        StartPress_RearMove+=2;
+        qDebug()<<"Left";
+        qDebug() << "RearMove="<<StartPress_RearMove;
+        qDebug() << "FrontMove="<<StartPress_FrontMove;
     }
 
     //front motor
-    digitalWrite(MOTOR_ID2_PIN0,HIGH);
-    digitalWrite(MOTOR_ID2_PIN1,HIGH);
+    softPwmWrite(MOTOR_ID2_PWM,PWM_FRONT);
+    digitalWrite(MOTOR_ID2_DIR,HIGH);
 }
 void MainWindow::Stop(){
     timer->stop();
@@ -220,19 +228,22 @@ void MainWindow::Stop(){
     qDebug() << "FrontMove="<<StartPress_FrontMove;
 }
 void MainWindow::StopFront(){
-    digitalWrite(MOTOR_ID2_PIN0,LOW);
-    digitalWrite(MOTOR_ID2_PIN1,LOW);
+    softPwmWrite(MOTOR_ID2_PWM,0);
+    digitalWrite(MOTOR_ID2_DIR,LOW);
 
     ui->RIGHT_B->setChecked(false);
     ui->LEFT_B->setChecked(false);
 }
 void MainWindow::StopRear(){
-    softPwmWrite(MOTOR_ID0_PIN0,0);
-    digitalWrite(MOTOR_ID0_PIN1,LOW);
+    softPwmWrite(MOTOR_ID0_PWM,0);
+    digitalWrite(MOTOR_ID0_DIR,LOW);
 
-    softPwmWrite(MOTOR_ID1_PIN0,0);
-    digitalWrite(MOTOR_ID1_PIN1,LOW);
+    softPwmWrite(MOTOR_ID1_PWM,0);
+    digitalWrite(MOTOR_ID1_DIR,LOW);
 
     ui->UP_B->setChecked(false);
     ui->DOWN_B->setChecked(false);
+}
+void MainWindow::CalculateSpeed(int x){
+    speed=SPEED_FACTOR*x;
 }

@@ -16,6 +16,8 @@ class MainWindow : public QMainWindow
     int StartPress_RearMove=0;
     int FinalPress_FrontMove=0;
     int FinalPress_RearMove=0;
+    //speed=factor*slider_value
+    int speed=0;
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
@@ -35,6 +37,7 @@ private slots:
     void Stop();
     void StopFront();
     void StopRear();
+    void CalculateSpeed(int x);
 };
 
 #endif // MAINWINDOW_H
