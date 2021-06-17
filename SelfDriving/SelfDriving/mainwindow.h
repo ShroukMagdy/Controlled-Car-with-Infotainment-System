@@ -31,13 +31,7 @@ public:
     int speed=20;
     //array of pointers to functions for movement
     void (MainWindow::*Move_Functions[6])();
-    typedef struct{
-        int* Direction;
-        int* Distance;
-    }PathInfo_t;
-     int **array = new int*[4]; // allocate an array of 10 int pointers — these are our rows
-int **array2 = new int*[5];
-     int **array_ptr[10];
+     unsigned int **path_array_ptr[10];
     //paths
     unsigned int Home_Path[HOME_PATH_SIZE][2]={{MOVEFORWARD_INDEX,2},
                                                {STOPREAR_INDEX,0},
@@ -56,6 +50,8 @@ int **array2 = new int*[5];
 
 private:
     Ui::MainWindow *ui;
+    int num_paths;
+    int num_path_command;
     void Move_Forward();
     void Move_Backward();
     void Move_Right();

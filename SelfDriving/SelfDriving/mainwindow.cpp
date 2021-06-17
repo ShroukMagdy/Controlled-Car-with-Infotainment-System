@@ -24,14 +24,27 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    for (int count = 0; count < 4; ++count){
-        array[count] = new int[2];
+    // read number of paths
+    num_paths=1;
+    for (int path_count = 0; path_count < num_paths; path_count++){
+        // read number of commands of the path
+        num_path_command=4;
+        path_array_ptr[path_count] = new unsigned int*[num_path_command];
+        for (int command_counter = 0; command_counter < num_path_command; command_counter++){
+            path_array_ptr[path_count][command_counter] = new unsigned int[2];
+            for (int counter = 0; counter < 2; counter++){
+                //read line of command
+                path_array_ptr[path_count][command_counter][counter] = Home_Path[command_counter][counter];
+            }
+        }
     }
-    array[0][0]=MOVEFORWARD_INDEX;
-array=(int**)Home_Path;
-array_ptr[0]=array;
-array_ptr[1]=array2;
+    for (int path_count = 0; path_count < num_paths; path_count++){
+        for (int command_counter = 0; command_counter < num_path_command; command_counter++){
+            for (int counter = 0; counter < 2; counter++){
+                qDebug() << path_array_ptr[path_count][command_counter][counter];
+            }
+        }
+    }
     //set ids for paths
     ui->Paths_RBs->setId(ui->Home_RB,HOME_PATH_ID);
     ui->Paths_RBs->setId(ui->Work_RB,WORK_PATH_ID);
@@ -118,8 +131,8 @@ void MainWindow::CheckPath(){
     switch(RB_CheckedId){
     case HOME_PATH_ID:
         for(counter=0;counter<HOME_PATH_SIZE;counter++){
-            (this->*Move_Functions[Home_Path[counter][0]])();
-            delay(1000*Home_Path[counter][1]);
+            (this->*Move_Functions[path_array_ptr[HOME_PATH_ID][counter][0]])();
+            delay(1000*path_array_ptr[HOME_PATH_ID][counter][1]);
         }
         break;
     case WORK_PATH_ID:
