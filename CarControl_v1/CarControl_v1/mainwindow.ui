@@ -29,6 +29,16 @@
     <property name="text">
      <string/>
     </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/arrows/images/upimg.png</normaloff>:/arrows/images/upimg.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>65</width>
+      <height>65</height>
+     </size>
+    </property>
     <property name="checkable">
      <bool>true</bool>
     </property>
@@ -44,6 +54,16 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/arrows/images/rightimg.png</normaloff>:/arrows/images/rightimg.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>65</width>
+      <height>65</height>
+     </size>
     </property>
     <property name="checkable">
      <bool>true</bool>
@@ -67,6 +87,16 @@
     <property name="text">
      <string/>
     </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/arrows/images/downimg.png</normaloff>:/arrows/images/downimg.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>65</width>
+      <height>65</height>
+     </size>
+    </property>
     <property name="checkable">
      <bool>true</bool>
     </property>
@@ -82,6 +112,16 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/arrows/images/leftimg.png</normaloff>:/arrows/images/leftimg.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>65</width>
+      <height>65</height>
+     </size>
     </property>
     <property name="checkable">
      <bool>true</bool>
@@ -146,6 +186,8 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

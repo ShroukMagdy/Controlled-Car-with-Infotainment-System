@@ -48,15 +48,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //timer instance
     timer = new QTimer;
-    //buttons images
-    ui->UP_B->setIcon(QIcon("../images/upimg.png"));
-    ui->UP_B->setIconSize(QSize(65,65));
-    ui->DOWN_B->setIcon(QIcon("../images/downimg.png"));
-    ui->DOWN_B->setIconSize(QSize(65,65));
-    ui->RIGHT_B->setIcon(QIcon("../images/rightimg.png"));
-    ui->RIGHT_B->setIconSize(QSize(65,65));
-    ui->LEFT_B->setIcon(QIcon("../images/leftimg.png"));
-    ui->LEFT_B->setIconSize(QSize(65,65));
 
     //timer function
     connect(timer,SIGNAL(timeout()),this,SLOT(Stop()));
