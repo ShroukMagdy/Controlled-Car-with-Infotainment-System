@@ -40,7 +40,7 @@
      <string>HOME</string>
     </property>
     <attribute name="buttonGroup">
-     <string notr="true">buttonGroup</string>
+     <string notr="true">Paths_RBs</string>
     </attribute>
    </widget>
    <widget class="QRadioButton" name="Work_RB">
@@ -56,7 +56,7 @@
      <string>WORK</string>
     </property>
     <attribute name="buttonGroup">
-     <string notr="true">buttonGroup</string>
+     <string notr="true">Paths_RBs</string>
     </attribute>
    </widget>
   </widget>
@@ -84,6 +84,6 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
+  <buttongroup name="Paths_RBs"/>
  </buttongroups>
 </ui>

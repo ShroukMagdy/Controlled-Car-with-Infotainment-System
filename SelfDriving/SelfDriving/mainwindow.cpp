@@ -24,6 +24,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    for (int count = 0; count < 4; ++count){
+        array[count] = new int[2];
+    }
+    array[0][0]=MOVEFORWARD_INDEX;
+array=(int**)Home_Path;
+array_ptr[0]=array;
+array_ptr[1]=array2;
+    //set ids for paths
+    ui->Paths_RBs->setId(ui->Home_RB,HOME_PATH_ID);
+    ui->Paths_RBs->setId(ui->Work_RB,WORK_PATH_ID);
+    //initialize array of movement functions
     Move_Functions[0]= &MainWindow::Move_Forward;
     Move_Functions[1]= &MainWindow::Move_Backward;
     Move_Functions[2]= &MainWindow::Move_Right;
@@ -102,9 +114,21 @@ void MainWindow::StopRear(){
 }
 void MainWindow::CheckPath(){
     int counter;
-    for(counter=0;counter<HOME_PATH_SIZE;counter++){
-
-        (this->*Move_Functions[Home_Path[counter][0]])();
-        delay(1000*Home_Path[counter][1]);
+    int RB_CheckedId=ui->Paths_RBs->checkedId();
+    switch(RB_CheckedId){
+    case HOME_PATH_ID:
+        for(counter=0;counter<HOME_PATH_SIZE;counter++){
+            (this->*Move_Functions[Home_Path[counter][0]])();
+            delay(1000*Home_Path[counter][1]);
+        }
+        break;
+    case WORK_PATH_ID:
+        for(counter=0;counter<WORK_PATH_SIZE;counter++){
+            (this->*Move_Functions[Work_Path[counter][0]])();
+            delay(1000*Work_Path[counter][1]);
+        }
+        break;
+    default:
+        break;
     }
 }

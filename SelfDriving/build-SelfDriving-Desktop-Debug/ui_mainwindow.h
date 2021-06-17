@@ -32,7 +32,7 @@ public:
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
-    QButtonGroup *buttonGroup;
+    QButtonGroup *Paths_RBs;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -45,13 +45,13 @@ public:
         Go_B->setObjectName(QStringLiteral("Go_B"));
         Go_B->setGeometry(QRect(150, 190, 105, 31));
         Home_RB = new QRadioButton(centralWidget);
-        buttonGroup = new QButtonGroup(MainWindow);
-        buttonGroup->setObjectName(QStringLiteral("buttonGroup"));
-        buttonGroup->addButton(Home_RB);
+        Paths_RBs = new QButtonGroup(MainWindow);
+        Paths_RBs->setObjectName(QStringLiteral("Paths_RBs"));
+        Paths_RBs->addButton(Home_RB);
         Home_RB->setObjectName(QStringLiteral("Home_RB"));
         Home_RB->setGeometry(QRect(160, 40, 125, 28));
         Work_RB = new QRadioButton(centralWidget);
-        buttonGroup->addButton(Work_RB);
+        Paths_RBs->addButton(Work_RB);
         Work_RB->setObjectName(QStringLiteral("Work_RB"));
         Work_RB->setGeometry(QRect(160, 110, 125, 28));
         MainWindow->setCentralWidget(centralWidget);
