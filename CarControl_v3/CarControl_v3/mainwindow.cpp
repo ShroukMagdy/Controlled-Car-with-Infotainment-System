@@ -5,6 +5,8 @@
 #include <QKeyEvent>
 #include <wiringPi.h>
 #include <softPwm.h>
+
+
 #include <QDebug>
 
 /*************************************PINS*********************************/
@@ -80,6 +82,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //set ids for paths
     ui->Paths_RBs->setId(ui->Home_RB,HOME_PATH_ID);
     ui->Paths_RBs->setId(ui->Work_RB,WORK_PATH_ID);
+    ui->Paths_RBs->setId(ui->Market_RB,MARKET_PATH_ID);
     //initialize array of movement functions
     Move_Functions[0]= &MainWindow::Move_Forward;
     Move_Functions[1]= &MainWindow::Move_Backward;
@@ -87,7 +90,56 @@ MainWindow::MainWindow(QWidget *parent) :
     Move_Functions[3]= &MainWindow::Move_Left;
     Move_Functions[4]= &MainWindow::StopFront;
     Move_Functions[5]= &MainWindow::StopRear;
-    connect(ui->Go_B,SIGNAL(pressed()),this,SLOT(CheckPath()));
+    connect(ui->Go_B,SIGNAL(pressed()),this,SLOT(GoPath()));
+
+    Pen.setWidth(5);
+    scene = new QGraphicsScene(this);
+    ui->graphicsView->setScene(scene);
+    //draw borders
+    Pen.setColor(QColor(0,0,0));
+    Pen.setStyle(Qt::SolidLine);
+    FixedMap.moveTo(0,0);
+    FixedMap.lineTo(0,260);
+    FixedMap.lineTo(390,260);
+    FixedMap.lineTo(390,0);
+    FixedMap.lineTo(0,0);
+    Path.closeSubpath();
+    scene->addPath(FixedMap,Pen,Brush);
+    FixedMap=QPainterPath();
+    //change color pin
+    Pen.setColor(QColor(0,0,255));
+    Pen.setStyle(Qt::DashDotLine);
+
+    for(int mapcounter=0;mapcounter<ROADS_NO;mapcounter++){
+        FixedMap.moveTo(((MapRoads[mapcounter].x_start+MAPOFFSET_X)*MAPFACTOR_X),((MAPOFFSET_Y-MapRoads[mapcounter].y_start)*MAPFACTOR_Y));
+        FixedMap.lineTo(((MapRoads[mapcounter].x_end+MAPOFFSET_X)*MAPFACTOR_X),((MAPOFFSET_Y-MapRoads[mapcounter].y_end)*MAPFACTOR_Y));
+    }
+
+    Path.closeSubpath();
+    scene->addPath(FixedMap,Pen,Brush);
+    FixedMap=QPainterPath();
+    Pen.setColor(QColor(255,0,0));
+    Pen.setWidth(8);
+    //point home
+    FixedMap.moveTo(0,260);
+    FixedMap.lineTo(2,258);
+    FixedMap.moveTo(2,260);
+    FixedMap.lineTo(0,258);
+    //point maret
+    FixedMap.moveTo(195,132);
+    FixedMap.lineTo(197,130);
+    FixedMap.moveTo(197,132);
+    FixedMap.lineTo(195,130);
+    //point work
+    FixedMap.moveTo(390,0);
+    FixedMap.lineTo(388,2);
+    FixedMap.moveTo(388,0);
+    FixedMap.lineTo(390,2);
+
+    Path.closeSubpath();
+    scene->addPath(FixedMap,Pen,Brush);
+
+
     /**********************************PATHS*************************************/
     QFile file("/home/pi/Desktop/Paths.txt");
     file.open(QIODevice::ReadWrite);
@@ -310,4 +362,43 @@ void MainWindow::CheckPath(){
     }
     speed=ui->SpeedSlider->value();
     speed*=SPEED_FACTOR;
+}
+
+void MainWindow::paintEvent(QPaintEvent *event)
+{
+    /*
+    if(DrawFlag==1){
+        Painter.begin(this); //Specify the current window as a drawing device;
+        Painter.setPen(Pen);
+
+
+        Path.moveTo(x_start,y_start);
+        Path.lineTo(x_end,y_end);
+
+        Path.closeSubpath();
+        scene->addPath(Path,Pen,Brush);
+
+        Painter.end();
+        qDebug()<<"Before";
+        qDebug()<<"x_start="<<x_start;
+        qDebug()<<"y_start="<<y_start;
+        qDebug()<<"x_end="<<x_end;
+        qDebug()<<"y_end="<<y_end;
+        x_start=x_end;
+        y_start=y_end;
+    }
+    DrawFlag=0;
+*/
+}
+
+void MainWindow::GoPath(){
+    //deactivate manual mode
+    Path=QPainterPath();
+    /*
+    x_start=150;
+    x_end=x_start;
+    y_start=150;
+    y_end=y_start;
+    */
+    update();
 }

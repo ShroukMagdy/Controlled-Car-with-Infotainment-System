@@ -4,5 +4,7 @@
         <file>images/leftimg.png</file>
         <file>images/rightimg.png</file>
         <file>images/upimg.png</file>
+        <file>images/smallarrow_dest.png</file>
+        <file>images/smallarrow_start.png</file>
     </qresource>
 </RCC>

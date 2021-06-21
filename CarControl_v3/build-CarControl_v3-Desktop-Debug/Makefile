@@ -51,10 +51,12 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../CarControl_v3/main.cpp \
-		../CarControl_v3/mainwindow.cpp qrc_resources.cpp \
+		../CarControl_v3/mainwindow.cpp \
+		../CarControl_v3/mapalgo.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
+		mapalgo.o \
 		qrc_resources.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_pre.prf \
@@ -116,6 +118,7 @@ DIST          = /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_post.prf \
+		../CarControl_v3/.qmake.stash \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/default_pre.prf \
@@ -136,7 +139,8 @@ DIST          = /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/lex.prf \
 		../CarControl_v3/CarControl_v3.pro ../CarControl_v3/mainwindow.h ../CarControl_v3/main.cpp \
-		../CarControl_v3/mainwindow.cpp
+		../CarControl_v3/mainwindow.cpp \
+		../CarControl_v3/mapalgo.cpp
 QMAKE_TARGET  = CarControl_v3
 DESTDIR       = 
 TARGET        = CarControl_v3
@@ -207,6 +211,7 @@ Makefile: ../CarControl_v3/CarControl_v3.pro /usr/lib/arm-linux-gnueabihf/qt5/mk
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/default_pre.prf \
@@ -291,6 +296,7 @@ Makefile: ../CarControl_v3/CarControl_v3.pro /usr/lib/arm-linux-gnueabihf/qt5/mk
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/default_pre.prf:
@@ -332,7 +338,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents ../CarControl_v3/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../CarControl_v3/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../CarControl_v3/main.cpp ../CarControl_v3/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../CarControl_v3/main.cpp ../CarControl_v3/mainwindow.cpp ../CarControl_v3/mapalgo.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../CarControl_v3/mainwindow.ui $(DISTDIR)/
 
 
@@ -363,9 +369,11 @@ compiler_rcc_clean:
 qrc_resources.cpp: ../CarControl_v3/resources.qrc \
 		/usr/lib/qt5/bin/rcc \
 		../CarControl_v3/images/rightimg.png \
+		../CarControl_v3/images/smallarrow_start.png \
 		../CarControl_v3/images/upimg.png \
 		../CarControl_v3/images/downimg.png \
-		../CarControl_v3/images/leftimg.png
+		../CarControl_v3/images/leftimg.png \
+		../CarControl_v3/images/smallarrow_dest.png
 	/usr/lib/qt5/bin/rcc -name resources ../CarControl_v3/resources.qrc -o qrc_resources.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -409,6 +417,9 @@ main.o: ../CarControl_v3/main.cpp ../CarControl_v3/mainwindow.h
 mainwindow.o: ../CarControl_v3/mainwindow.cpp ../CarControl_v3/mainwindow.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../CarControl_v3/mainwindow.cpp
+
+mapalgo.o: ../CarControl_v3/mapalgo.cpp ../CarControl_v3/mainwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mapalgo.o ../CarControl_v3/mapalgo.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

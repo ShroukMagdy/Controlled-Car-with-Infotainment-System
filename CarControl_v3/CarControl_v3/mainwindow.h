@@ -2,24 +2,74 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+
+#include <QPainter>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsItem>
 /*******************************SELFDRIVINGMODE****************************/
 //indicies for functions call
-#define MOVEFORWARD_INDEX       0
-#define MOVEBACKWARD_INDEX      1
-#define MOVERIGHT_INDEX         2
-#define MOVELEFT_INDEX          3
-#define STOPFRONT_INDEX         4
-#define STOPREAR_INDEX          5
+#define MOVEFORWARD_INDEX           0
+#define MOVEBACKWARD_INDEX          1
+#define MOVERIGHT_INDEX             2
+#define MOVELEFT_INDEX              3
+#define STOPFRONT_INDEX             4
+#define STOPREAR_INDEX              5
 
-#define PATHS_NO                2
-#define HOME_PATH_SIZE          4
-#define WORK_PATH_SIZE          4
+#define PATHS_NO                    2
+#define HOME_PATH_SIZE              4
+#define WORK_PATH_SIZE              4
 
-#define HOME_PATH_ID            0
-#define WORK_PATH_ID            1
+#define HOME_PATH_ID                0
+#define WORK_PATH_ID                1
+#define MARKET_PATH_ID              2
 
-#define CARSPEED                2       //sec/m
+#define CARSPEED                    2       //sec/m
+
+#define ROADS_NO                    3
+#define INTERSECTIONS_NO            2
+
+#define ORIENTATION_VERTICAL        0
+#define ORIENTATION_HORIZENTAL      1
+
+#define MOVING_FORWARD              0
+#define MOVING_REVERSE              1
+
+#define MAPOFFSET_X                 0
+#define MAPOFFSET_Y                 10
+
+#define MAPLIMIT_X                  390
+#define MAPLIMIT_Y                  260
+
+#define MAPFACTOR_X                 39
+#define MAPFACTOR_Y                 26
+
+typedef struct
+{
+    int x_start;
+    int y_start;
+    int x_end;
+    int y_end;
+    int orientation;
+} Road;
+
+typedef struct
+{
+    int x_intersection;
+    int y_intersection;
+    int road1_index;
+    int road2_index;
+} Intersection;
+
+typedef struct
+{
+    int Forward_Horizental;
+    int Reverse_Horizental;
+    int Forward_Vertical;
+    int Reverse_Vertical;
+} AvailableDirections;
 /*************************************************************************/
+
 namespace Ui {
 class MainWindow;
 }
@@ -40,29 +90,37 @@ class MainWindow : public QMainWindow
     int SelfDriving_speed=20;
     //array of pointers to functions for movement
     void (MainWindow::*Move_Functions[6])();
-    /*
-    //paths
-    unsigned int Home_Path[HOME_PATH_SIZE][2]={{MOVEFORWARD_INDEX,1},
-                                               {STOPREAR_INDEX,0},
-                                               {MOVEBACKWARD_INDEX,1},
-                                               {STOPREAR_INDEX,0}
-                                              };
-
-    unsigned int Work_Path[WORK_PATH_SIZE][2]={{MOVEBACKWARD_INDEX,1},
-                                               {STOPREAR_INDEX,0},
-                                               {MOVEFORWARD_INDEX,1},
-                                               {STOPREAR_INDEX,0}
-                                              };
-                                              */
     int **path_array_ptr[10];
+
+    QPainterPath Path;
+    QPainterPath FixedMap;
+    QPainter Painter;
+    QPen Pen;
+
+    QBrush Brush;
+    QGraphicsScene *scene;
+    int DrawFlag=0;
+    Road MapRoads[ROADS_NO] = {
+        {0,0,0,5,ORIENTATION_VERTICAL},
+        {0,5,10,5,ORIENTATION_HORIZENTAL},
+        {10,5,10,10,ORIENTATION_VERTICAL}
+    };
+
+    Intersection MapIntersections[INTERSECTIONS_NO] = {
+        {0,5,0,1},
+        {10,5,1,2}
+    };
     /*************************************************************************/
 
 public:
+    void PathPlan (int current_x, int current_y, int dest_x, int dest_y);
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 protected:
     void keyPressEvent(QKeyEvent *e);
     void keyReleaseEvent(QKeyEvent *e);
+
+    void paintEvent(QPaintEvent *event);
 
 private:
     Ui::MainWindow *ui;
@@ -80,6 +138,8 @@ private slots:
     void CalculateSpeed(int x);
 
     void CheckPath();
+
+    void GoPath();
 };
 
 

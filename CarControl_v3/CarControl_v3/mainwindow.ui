@@ -23,8 +23,11 @@
       <height>451</height>
      </rect>
     </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="Manual_T">
      <attribute name="title">
@@ -43,7 +46,7 @@
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="../../CarControl_v2/resources.qrc">
+       <iconset resource="resources.qrc">
         <normaloff>:/arrows/images/downimg.png</normaloff>:/arrows/images/downimg.png</iconset>
       </property>
       <property name="iconSize">
@@ -69,7 +72,7 @@
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="../../CarControl_v2/resources.qrc">
+       <iconset resource="resources.qrc">
         <normaloff>:/arrows/images/leftimg.png</normaloff>:/arrows/images/leftimg.png</iconset>
       </property>
       <property name="iconSize">
@@ -95,7 +98,7 @@
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="../../CarControl_v2/resources.qrc">
+       <iconset resource="resources.qrc">
         <normaloff>:/arrows/images/rightimg.png</normaloff>:/arrows/images/rightimg.png</iconset>
       </property>
       <property name="iconSize">
@@ -130,7 +133,7 @@
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="../../CarControl_v2/resources.qrc">
+       <iconset resource="resources.qrc">
         <normaloff>:/arrows/images/upimg.png</normaloff>:/arrows/images/upimg.png</iconset>
       </property>
       <property name="iconSize">
@@ -172,9 +175,21 @@
        <rect>
         <x>10</x>
         <y>130</y>
-        <width>421</width>
-        <height>281</height>
+        <width>420</width>
+        <height>280</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
       </property>
      </widget>
      <widget class="QPushButton" name="Go_B">
@@ -193,7 +208,7 @@
      <widget class="QLabel" name="StartingPoint_L">
       <property name="geometry">
        <rect>
-        <x>32</x>
+        <x>20</x>
         <y>10</y>
         <width>141</width>
         <height>23</height>
@@ -206,7 +221,7 @@
      <widget class="QLabel" name="Destination_L">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>260</x>
         <y>10</y>
         <width>141</width>
         <height>23</height>
@@ -219,9 +234,9 @@
      <widget class="QRadioButton" name="Work_RB">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>170</y>
-        <width>125</width>
+        <x>330</x>
+        <y>140</y>
+        <width>81</width>
         <height>28</height>
        </rect>
       </property>
@@ -235,9 +250,9 @@
      <widget class="QRadioButton" name="Home_RB">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>330</y>
-        <width>125</width>
+        <x>30</x>
+        <y>370</y>
+        <width>81</width>
         <height>28</height>
        </rect>
       </property>
@@ -251,7 +266,7 @@
      <widget class="QLabel" name="StartingPointMap_L">
       <property name="geometry">
        <rect>
-        <x>32</x>
+        <x>20</x>
         <y>40</y>
         <width>151</width>
         <height>23</height>
@@ -267,7 +282,7 @@
      <widget class="QLabel" name="DestinationMap_L">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>260</x>
         <y>40</y>
         <width>151</width>
         <height>23</height>
@@ -278,6 +293,65 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="Market_RB">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>240</y>
+        <width>125</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>MARKET</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="MapStart_B">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>40</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/arrows/images/smallarrow_start.png</normaloff>:/arrows/images/smallarrow_start.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>30</width>
+        <height>35</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="MapDest_B">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>10</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/arrows/images/smallarrow_dest.png</normaloff>:/arrows/images/smallarrow_dest.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>30</width>
+        <height>35</height>
+       </size>
       </property>
      </widget>
     </widget>
@@ -304,7 +378,9 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
  <buttongroups>
   <buttongroup name="Paths_RBs"/>
