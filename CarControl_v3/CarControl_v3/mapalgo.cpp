@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "math.h"
 void
 MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
 {
@@ -9,6 +10,7 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
     int intersection_counter;
     int moving_flag=0;
     int in_destroad = 0;
+    int distance=0;
 
     AvailableDirections Current_AvailableDirections = {0,0,0,0};
     for (intersection_counter = 0; intersection_counter < INTERSECTIONS_NO;
@@ -21,9 +23,9 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
         {
             /*********************raise flag for intersection*********************/
             currentloc_isintersection = 1;
-            printf ("current between road %d and road %d",
-                    MapIntersections[intersection_counter].road1_index,
-                    MapIntersections[intersection_counter].road2_index);
+            qDebug()<<"current between road"<<
+                      MapIntersections[intersection_counter].road1_index<<" and road"<<
+                      MapIntersections[intersection_counter].road2_index;
 
             /******************************choose road***********************/
 
@@ -171,7 +173,7 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                     (current_y <= MapRoads[road_counter].y_end))
             {
                 current_road = road_counter;
-                printf ("current road is %d", road_counter);
+                qDebug()<<"current road is "<< road_counter;
                 break;
             }
         }
@@ -181,16 +183,28 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
     {
 
         /**************************************check if destination in current road****************************************/
+        /*
         if ((dest_x >= MapRoads[current_road].x_start) &&
                 (dest_y >= MapRoads[current_road].y_start) &&
                 (dest_x <= MapRoads[current_road].x_end) &&
                 (dest_y <= MapRoads[current_road].y_end))
         {
             in_destroad = 1;
+            //calculate distance
+            distance=sqrt(pow((dest_x-current_x),2)+pow((dest_y-current_y),2));
+            qDebug()<<"distance="<<distance;
+
+            //real moving
+            Move_Forward();
+            delay(1000*distance*CARSPEED);
+
+            //update of current position
             current_x = dest_x;
             current_y = dest_y;
-            printf ("\nnew point, x=%d,y=%d", current_x, current_y);
+
+            qDebug()<<"new point, x="<< current_x<<"y="<< current_y;
         }
+        */
         /****************************************************Moving************************************************************/
 
         if (in_destroad == 0)
@@ -200,36 +214,85 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
             {
                 if (current_x < dest_x)
                 {
-                    moving_flag = MOVING_FORWARD;
-                    printf ("\nhorizental,forward");
+                    qDebug()<<"horizental,forward";
                     current_x += 1;
-                    printf ("\nnew point, x=%d,y=%d", current_x, current_y);
+                    qDebug()<<"new point, x="<< current_x<<"y="<< current_y;
+                    if(currentloc_isintersection==1){
+                        if(moving_flag==MOVING_FORWARD){
+                            Move_Right();
+                        }
+                        else{
+                            Move_Left();
+                        }
+                        delay(1000);
+                        StopFront();
+                        currentloc_isintersection=0;
+                    }
+                    moving_flag = MOVING_FORWARD;
                 }
                 else
                 {
-                    moving_flag = MOVING_REVERSE;
-                    printf ("\nhorizental,reverse");
+                    qDebug()<< "horizental,reverse";
                     current_x -= 1;
-                    printf ("\nnew point, x=%d,y=%d", current_x, current_y);
+                    qDebug()<< "new point, x="<< current_x<<"y="<<current_y;
+                    if(currentloc_isintersection==1){
+                        if(moving_flag==MOVING_FORWARD){
+                            Move_Left();
+                        }
+                        else{
+                            Move_Right();
+                        }
+                        delay(1000);
+                        StopFront();
+                        currentloc_isintersection=0;
+                    }
+                    moving_flag = MOVING_REVERSE;
+
                 }
             }
             else if (MapRoads[current_road].orientation == ORIENTATION_VERTICAL)
             {
                 if (current_y < dest_y)
                 {
-                    moving_flag = MOVING_FORWARD;
-                    printf ("\nvertical,forward");
+                    qDebug()<< "vertical,forward";
                     current_y += 1;
-                    printf ("\nnew point, x=%d,y=%d", current_x, current_y);
+                    qDebug()<< "new point, x="<< current_x<<"y="<<current_y;
+                    if(currentloc_isintersection==1){
+                        if(moving_flag==MOVING_FORWARD){
+                            Move_Left();
+                        }
+                        else{
+                            Move_Right();
+                        }
+                        delay(1000);
+                        StopFront();
+                        currentloc_isintersection=0;
+                    }
+                    moving_flag = MOVING_FORWARD;
                 }
                 else
                 {
-                    moving_flag = MOVING_REVERSE;
-                    printf ("\nvertical,reverse");
+                    qDebug()<< "vertical,reverse";
                     current_y -= 1;
-                    printf ("\nnew point, x=%d,y=%d", current_x, current_y);
+                    qDebug()<< "new point, x="<< current_x<<"y="<<current_y;
+                    if(currentloc_isintersection==1){
+                        if(moving_flag==MOVING_FORWARD){
+                            Move_Right();
+                        }
+                        else{
+                            Move_Left();
+                        }
+                        delay(1000);
+                        StopFront();
+                        currentloc_isintersection=0;
+                    }
+                    moving_flag = MOVING_REVERSE;
                 }
             }
+            //real moving
+            Move_Forward();
+            delay(1000*1*CARSPEED);
+
             /*****************************************check to change road**********************************************/
             for (intersection_counter = 0;
                  intersection_counter < INTERSECTIONS_NO;
@@ -242,11 +305,11 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                             MapIntersections[intersection_counter].y_intersection))
                 {
                     /***********raise flag for intersection*************/
-                    // currentloc_isintersection = 1;
-                    printf ("\ncurrent between road %d and road %d",
-                            MapIntersections
-                            [intersection_counter].road1_index,
-                            MapIntersections[intersection_counter].road2_index);
+                    currentloc_isintersection = 1;
+                    qDebug()<<"current between road"<<
+                              MapIntersections
+                              [intersection_counter].road1_index<<"and road"<<
+                              MapIntersections[intersection_counter].road2_index;
                     /********************switch to the other road*************/
                     current_road =
                             MapIntersections[intersection_counter].road1_index
@@ -254,7 +317,7 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                             current_road ?
                                 MapIntersections[intersection_counter].road2_index :
                                 MapIntersections[intersection_counter].road1_index;
-                    printf ("\ncurrent road=%d", current_road);
+                    qDebug()<<"current road="<< current_road;
                     break;
                 }
             }
@@ -264,4 +327,6 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
         /**********************************************************************************************************************/
 
     }				//while
+    StopFront();
+    StopRear();
 }

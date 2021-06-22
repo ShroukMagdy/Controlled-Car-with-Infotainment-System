@@ -27,7 +27,8 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    mapalgo.cpp
+    mapalgo.cpp \
+    movingfns.cpp
 
 HEADERS += \
         mainwindow.h

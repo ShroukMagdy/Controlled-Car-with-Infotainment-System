@@ -1,30 +1,5 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 
-#include <QTimer>
-#include <QKeyEvent>
-#include <wiringPi.h>
-#include <softPwm.h>
-
-
-#include <QDebug>
-
-/*************************************PINS*********************************/
-#define MOTOR_ID0_PWM                   1           //PWM
-#define MOTOR_ID0_DIR                   4           //DIR
-#define MOTOR_ID1_PWM                   26          //PWM
-#define MOTOR_ID1_DIR                   5           //DIR
-
-#define MOTOR_ID2_PWM                   2           //PWM
-#define MOTOR_ID2_DIR                   3           //DIR
-
-//camera
-#define CAMERANOFICATIONPIN             0           //output for the other pi
-
-#define SPEED_FACTOR                    20
-#define TIMER_TIMEOUT                   150
-#define PWM_FRONT                       60          //fixed - done for optimization of rotation
-/**************************************************************************/
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -79,6 +54,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->SpeedSlider,SIGNAL(valueChanged(int)),this,SLOT(CalculateSpeed(int)));
     /***************************************************************************/
     //self driving mode
+    connect(ui->MapDest_B,SIGNAL(pressed()),this,SLOT(MapDest_Select()));
+    connect(ui->MapStart_B,SIGNAL(pressed()),this,SLOT(MapStart_Select()));
+
+    connect(ui->Go_B,SIGNAL(pressed()),this,SLOT(GoPath()));
+
     //set ids for paths
     ui->Paths_RBs->setId(ui->Home_RB,HOME_PATH_ID);
     ui->Paths_RBs->setId(ui->Work_RB,WORK_PATH_ID);
@@ -90,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
     Move_Functions[3]= &MainWindow::Move_Left;
     Move_Functions[4]= &MainWindow::StopFront;
     Move_Functions[5]= &MainWindow::StopRear;
-    connect(ui->Go_B,SIGNAL(pressed()),this,SLOT(GoPath()));
+
 
     Pen.setWidth(5);
     scene = new QGraphicsScene(this);
@@ -227,115 +207,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e){
         another_press=1;
     }
 }
-void MainWindow::Move_Forward(){
-    //update flags , 1 means current move , other flag just +2
-    if((StartPress_RearMove==0)||(StartPress_FrontMove==1)){
-        StartPress_RearMove=1;
-        StartPress_FrontMove+=2;
-        qDebug()<<"Forward";
-        qDebug() << "RearMove="<<StartPress_RearMove;
-        qDebug() << "FrontMove="<<StartPress_FrontMove;
-    }
 
-    //rear motors
-    softPwmWrite(MOTOR_ID0_PWM,speed);
-    digitalWrite(MOTOR_ID0_DIR,LOW);
-
-    softPwmWrite(MOTOR_ID1_PWM,speed);
-    digitalWrite(MOTOR_ID1_DIR,LOW);
-}
-void MainWindow::Move_Backward(){
-    //update flags , 1 means current move , other flag just +2
-    if((StartPress_RearMove==0)||(StartPress_FrontMove==1)){
-        StartPress_RearMove=1;
-        StartPress_FrontMove+=2;
-        qDebug()<<"Backward";
-        qDebug() << "RearMove="<<StartPress_RearMove;
-        qDebug() << "FrontMove="<<StartPress_FrontMove;
-    }
-
-    //rear motors
-    softPwmWrite(MOTOR_ID0_PWM,speed);
-    digitalWrite(MOTOR_ID0_DIR,HIGH);
-
-    softPwmWrite(MOTOR_ID1_PWM,speed);
-    digitalWrite(MOTOR_ID1_DIR,HIGH);
-
-    //camera notificatiion pin
-    digitalWrite(CAMERANOFICATIONPIN,HIGH);
-}
-void MainWindow:: Move_Right(){
-    //update flags , 1 means current move , other flag just +2
-    if((StartPress_FrontMove==0)||(StartPress_RearMove==1)){
-        StartPress_FrontMove=1;
-        StartPress_RearMove+=2;
-        qDebug()<<"Right";
-        qDebug() << "RearMove="<<StartPress_RearMove;
-        qDebug() << "FrontMove="<<StartPress_FrontMove;
-    }
-
-    //front motor
-    softPwmWrite(MOTOR_ID2_PWM,PWM_FRONT);
-    digitalWrite(MOTOR_ID2_DIR,LOW);
-}
-void MainWindow:: Move_Left(){
-    //update flags , 1 means current move , other flag just +2
-    if((StartPress_FrontMove==0)||(StartPress_RearMove==1)){
-        StartPress_FrontMove=1;
-        StartPress_RearMove+=2;
-        qDebug()<<"Left";
-        qDebug() << "RearMove="<<StartPress_RearMove;
-        qDebug() << "FrontMove="<<StartPress_FrontMove;
-    }
-
-    //front motor
-    softPwmWrite(MOTOR_ID2_PWM,PWM_FRONT);
-    digitalWrite(MOTOR_ID2_DIR,HIGH);
-}
-void MainWindow::Stop(){
-    timer->stop();
-    if(StartPress_FrontMove==1){
-        //update flags , 1 means current move so make it 0, other flag just -2
-        StartPress_FrontMove=0;
-        if(StartPress_RearMove>0){
-            FinalPress_RearMove=1;
-            StartPress_RearMove-=2;
-        }
-        StopFront();
-    }
-    else if(StartPress_RearMove==1){
-        //update flags , 1 means current move so make it 0, other flag just -2
-        StartPress_RearMove=0;
-        if(StartPress_FrontMove>0){
-            FinalPress_FrontMove=1;
-            StartPress_FrontMove-=2;
-        }
-        StopRear();
-    }
-    qDebug() << "STOOOOOOOOOOOOOOOOOOOP";
-    qDebug() << "RearMove="<<StartPress_RearMove;
-    qDebug() << "FrontMove="<<StartPress_FrontMove;
-}
-void MainWindow::StopFront(){
-    softPwmWrite(MOTOR_ID2_PWM,0);
-    digitalWrite(MOTOR_ID2_DIR,LOW);
-
-    ui->RIGHT_B->setChecked(false);
-    ui->LEFT_B->setChecked(false);
-}
-void MainWindow::StopRear(){
-    softPwmWrite(MOTOR_ID0_PWM,0);
-    digitalWrite(MOTOR_ID0_DIR,LOW);
-
-    softPwmWrite(MOTOR_ID1_PWM,0);
-    digitalWrite(MOTOR_ID1_DIR,LOW);
-
-    ui->UP_B->setChecked(false);
-    ui->DOWN_B->setChecked(false);
-
-    //camera notificatiion pin
-    digitalWrite(CAMERANOFICATIONPIN,LOW);
-}
 void MainWindow::CalculateSpeed(int x){
     speed=SPEED_FACTOR*x;
 }
@@ -390,15 +262,81 @@ void MainWindow::paintEvent(QPaintEvent *event)
     DrawFlag=0;
 */
 }
+void MainWindow::MapDest_Select(){
+    int RB_CheckedId=ui->Paths_RBs->checkedId();
+    if(RB_CheckedId!=-1){
+        //activate dest selection
+        ui->MapStart_B->setEnabled(TRUE);
+        //deactivate start selection
+        ui->MapDest_B->setEnabled(FALSE);
+        //update location coordinates
+        StartLocation=MapLocations[RB_CheckedId];
 
-void MainWindow::GoPath(){
-    //deactivate manual mode
-    Path=QPainterPath();
-    /*
-    x_start=150;
-    x_end=x_start;
-    y_start=150;
-    y_end=y_start;
-    */
-    update();
+        //change label text
+        ui->StartingPointMap_L->setText(ui->Paths_RBs->checkedButton()->text());
+
+        //unselect selected radiobutton
+        ui->Paths_RBs->setExclusive(FALSE);
+        ui->Paths_RBs->checkedButton()->setChecked(FALSE);
+        ui->Paths_RBs->setExclusive(TRUE);
+
+        //enable go button
+        ui->Go_B->setEnabled(TRUE);
+
+    }
 }
+void MainWindow::MapStart_Select(){
+    int RB_CheckedId=ui->Paths_RBs->checkedId();
+    if(RB_CheckedId!=-1){
+        //deactivate dest selection
+        ui->MapStart_B->setEnabled(FALSE);
+        //activate start selection
+        ui->MapDest_B->setEnabled(TRUE);
+        //update location coordinates
+        DestLocation=MapLocations[RB_CheckedId];
+
+        //change label text
+        ui->DestinationMap_L->setText(ui->Paths_RBs->checkedButton()->text());
+
+        //unselect selected radiobutton
+        ui->Paths_RBs->setExclusive(FALSE);
+        ui->Paths_RBs->checkedButton()->setChecked(FALSE);
+        ui->Paths_RBs->setExclusive(TRUE);
+
+    }
+
+}
+void MainWindow::GoPath(){
+    //update destination
+    MapStart_Select();
+
+    if(DestLocation.x!=-1){
+        //update speed
+        speed=SelfDriving_speed;
+
+        //deactivate manual mode
+        ui->Manual_T->setEnabled(FALSE);
+        PathPlan(StartLocation.x,StartLocation.y,DestLocation.x,DestLocation.y);
+
+        /************************after finishing the path***********************/
+        //activate manual mode
+        ui->Manual_T->setEnabled(TRUE);
+
+        //disable go button
+        ui->Go_B->setEnabled(FALSE);
+
+        //clear labels
+        ui->DestinationMap_L->setText("Choose from map");
+        ui->StartingPointMap_L->setText("Choose from map");
+
+        //update for start position
+       // StartLocation=DestLocation;
+        //update for new destination
+        DestLocation={-1,-1};
+
+        //return speed to old value
+        speed=ui->SpeedSlider->value();
+        speed*=SPEED_FACTOR;
+    }
+}
+

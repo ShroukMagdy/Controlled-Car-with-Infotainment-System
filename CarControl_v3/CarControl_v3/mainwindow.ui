@@ -193,9 +193,12 @@
       </property>
      </widget>
      <widget class="QPushButton" name="Go_B">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>170</x>
         <y>100</y>
         <width>105</width>
         <height>31</height>
@@ -307,8 +310,14 @@
       <property name="text">
        <string>MARKET</string>
       </property>
+      <attribute name="buttonGroup">
+       <string notr="true">Paths_RBs</string>
+      </attribute>
      </widget>
      <widget class="QPushButton" name="MapStart_B">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>200</x>

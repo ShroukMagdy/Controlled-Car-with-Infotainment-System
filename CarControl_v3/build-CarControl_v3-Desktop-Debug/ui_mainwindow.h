@@ -123,7 +123,8 @@ public:
         graphicsView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustIgnored);
         Go_B = new QPushButton(SelfDriving_T);
         Go_B->setObjectName(QStringLiteral("Go_B"));
-        Go_B->setGeometry(QRect(150, 100, 105, 31));
+        Go_B->setEnabled(false);
+        Go_B->setGeometry(QRect(170, 100, 105, 31));
         StartingPoint_L = new QLabel(SelfDriving_T);
         StartingPoint_L->setObjectName(QStringLiteral("StartingPoint_L"));
         StartingPoint_L->setGeometry(QRect(20, 10, 141, 23));
@@ -149,10 +150,12 @@ public:
         DestinationMap_L->setGeometry(QRect(260, 40, 151, 23));
         DestinationMap_L->setAlignment(Qt::AlignCenter);
         Market_RB = new QRadioButton(SelfDriving_T);
+        Paths_RBs->addButton(Market_RB);
         Market_RB->setObjectName(QStringLiteral("Market_RB"));
         Market_RB->setGeometry(QRect(190, 240, 125, 28));
         MapStart_B = new QPushButton(SelfDriving_T);
         MapStart_B->setObjectName(QStringLiteral("MapStart_B"));
+        MapStart_B->setEnabled(false);
         MapStart_B->setGeometry(QRect(200, 40, 41, 21));
         QIcon icon4;
         icon4.addFile(QStringLiteral(":/arrows/images/smallarrow_start.png"), QSize(), QIcon::Normal, QIcon::Off);

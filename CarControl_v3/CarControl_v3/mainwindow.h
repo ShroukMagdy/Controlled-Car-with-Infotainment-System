@@ -2,11 +2,34 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "ui_mainwindow.h"
+
+#include <QTimer>
+#include <QKeyEvent>
+#include <wiringPi.h>
+#include <softPwm.h>
 
 #include <QPainter>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsItem>
+
+#include <QDebug>
+/*************************************PINS*********************************/
+#define MOTOR_ID0_PWM                   1           //PWM
+#define MOTOR_ID0_DIR                   4           //DIR
+#define MOTOR_ID1_PWM                   26          //PWM
+#define MOTOR_ID1_DIR                   5           //DIR
+
+#define MOTOR_ID2_PWM                   2           //PWM
+#define MOTOR_ID2_DIR                   3           //DIR
+
+//camera
+#define CAMERANOFICATIONPIN             0           //output for the other pi
+
+#define SPEED_FACTOR                    20
+#define TIMER_TIMEOUT                   150
+#define PWM_FRONT                       60          //fixed - done for optimization of rotation
 /*******************************SELFDRIVINGMODE****************************/
 //indicies for functions call
 #define MOVEFORWARD_INDEX           0
@@ -21,13 +44,14 @@
 #define WORK_PATH_SIZE              4
 
 #define HOME_PATH_ID                0
-#define WORK_PATH_ID                1
-#define MARKET_PATH_ID              2
+#define MARKET_PATH_ID              1
+#define WORK_PATH_ID                2
 
 #define CARSPEED                    2       //sec/m
 
 #define ROADS_NO                    3
 #define INTERSECTIONS_NO            2
+#define LOCATIONS_NO                3
 
 #define ORIENTATION_VERTICAL        0
 #define ORIENTATION_HORIZENTAL      1
@@ -68,6 +92,10 @@ typedef struct
     int Forward_Vertical;
     int Reverse_Vertical;
 } AvailableDirections;
+typedef struct{
+    int x;
+    int y;
+}LocationInfo;
 /*************************************************************************/
 
 namespace Ui {
@@ -110,6 +138,14 @@ class MainWindow : public QMainWindow
         {0,5,0,1},
         {10,5,1,2}
     };
+
+    LocationInfo MapLocations[LOCATIONS_NO]={
+        {0,0},
+        {5,5},
+        {10,10}
+    };
+    LocationInfo StartLocation;
+    LocationInfo DestLocation={-1,-1};
     /*************************************************************************/
 
 public:
@@ -139,6 +175,8 @@ private slots:
 
     void CheckPath();
 
+    void MapDest_Select();
+    void MapStart_Select();
     void GoPath();
 };
 

@@ -52,11 +52,13 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../CarControl_v3/main.cpp \
 		../CarControl_v3/mainwindow.cpp \
-		../CarControl_v3/mapalgo.cpp qrc_resources.cpp \
+		../CarControl_v3/mapalgo.cpp \
+		../CarControl_v3/movingfns.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		mapalgo.o \
+		movingfns.o \
 		qrc_resources.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_pre.prf \
@@ -140,7 +142,8 @@ DIST          = /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/lex.prf \
 		../CarControl_v3/CarControl_v3.pro ../CarControl_v3/mainwindow.h ../CarControl_v3/main.cpp \
 		../CarControl_v3/mainwindow.cpp \
-		../CarControl_v3/mapalgo.cpp
+		../CarControl_v3/mapalgo.cpp \
+		../CarControl_v3/movingfns.cpp
 QMAKE_TARGET  = CarControl_v3
 DESTDIR       = 
 TARGET        = CarControl_v3
@@ -338,7 +341,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents ../CarControl_v3/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../CarControl_v3/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../CarControl_v3/main.cpp ../CarControl_v3/mainwindow.cpp ../CarControl_v3/mapalgo.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../CarControl_v3/main.cpp ../CarControl_v3/mainwindow.cpp ../CarControl_v3/mapalgo.cpp ../CarControl_v3/movingfns.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../CarControl_v3/mainwindow.ui $(DISTDIR)/
 
 
@@ -385,7 +388,8 @@ moc_predefs.h: /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/data/dummy.cpp
 compiler_moc_header_make_all: moc_mainwindow.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp
-moc_mainwindow.cpp: ../CarControl_v3/mainwindow.h \
+moc_mainwindow.cpp: ui_mainwindow.h \
+		../CarControl_v3/mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/pi/Programms/ITI_GP/CarControl_v3/build-CarControl_v3-Desktop-Debug/moc_predefs.h -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++ -I/home/pi/Programms/ITI_GP/CarControl_v3/CarControl_v3 -I/usr/include/arm-linux-gnueabihf/qt5 -I/usr/include/arm-linux-gnueabihf/qt5/QtWidgets -I/usr/include/arm-linux-gnueabihf/qt5/QtGui -I/usr/include/arm-linux-gnueabihf/qt5/QtCore -I. -I/usr/include/c++/8 -I/usr/include/arm-linux-gnueabihf/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/arm-linux-gnueabihf/8/include -I/usr/local/include -I/usr/lib/gcc/arm-linux-gnueabihf/8/include-fixed -I/usr/include/arm-linux-gnueabihf -I/usr/include ../CarControl_v3/mainwindow.h -o moc_mainwindow.cpp
@@ -411,15 +415,21 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-main.o: ../CarControl_v3/main.cpp ../CarControl_v3/mainwindow.h
+main.o: ../CarControl_v3/main.cpp ../CarControl_v3/mainwindow.h \
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../CarControl_v3/main.cpp
 
 mainwindow.o: ../CarControl_v3/mainwindow.cpp ../CarControl_v3/mainwindow.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../CarControl_v3/mainwindow.cpp
 
-mapalgo.o: ../CarControl_v3/mapalgo.cpp ../CarControl_v3/mainwindow.h
+mapalgo.o: ../CarControl_v3/mapalgo.cpp ../CarControl_v3/mainwindow.h \
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mapalgo.o ../CarControl_v3/mapalgo.cpp
+
+movingfns.o: ../CarControl_v3/movingfns.cpp ../CarControl_v3/mainwindow.h \
+		ui_mainwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o movingfns.o ../CarControl_v3/movingfns.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
