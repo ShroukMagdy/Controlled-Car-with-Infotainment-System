@@ -6,5 +6,6 @@
         <file>images/upimg.png</file>
         <file>images/smallarrow_dest.png</file>
         <file>images/smallarrow_start.png</file>
+        <file>images/rightsymbol.jpeg</file>
     </qresource>
 </RCC>

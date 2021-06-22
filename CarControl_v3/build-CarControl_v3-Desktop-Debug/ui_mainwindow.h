@@ -50,6 +50,7 @@ public:
     QRadioButton *Market_RB;
     QPushButton *MapStart_B;
     QPushButton *MapDest_B;
+    QPushButton *DestConfirm_B;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -127,10 +128,10 @@ public:
         Go_B->setGeometry(QRect(170, 100, 105, 31));
         StartingPoint_L = new QLabel(SelfDriving_T);
         StartingPoint_L->setObjectName(QStringLiteral("StartingPoint_L"));
-        StartingPoint_L->setGeometry(QRect(20, 10, 141, 23));
+        StartingPoint_L->setGeometry(QRect(0, 10, 141, 23));
         Destination_L = new QLabel(SelfDriving_T);
         Destination_L->setObjectName(QStringLiteral("Destination_L"));
-        Destination_L->setGeometry(QRect(260, 10, 141, 23));
+        Destination_L->setGeometry(QRect(240, 10, 141, 23));
         Work_RB = new QRadioButton(SelfDriving_T);
         Paths_RBs = new QButtonGroup(MainWindow);
         Paths_RBs->setObjectName(QStringLiteral("Paths_RBs"));
@@ -143,11 +144,11 @@ public:
         Home_RB->setGeometry(QRect(30, 370, 81, 28));
         StartingPointMap_L = new QLabel(SelfDriving_T);
         StartingPointMap_L->setObjectName(QStringLiteral("StartingPointMap_L"));
-        StartingPointMap_L->setGeometry(QRect(20, 40, 151, 23));
+        StartingPointMap_L->setGeometry(QRect(0, 40, 151, 23));
         StartingPointMap_L->setAlignment(Qt::AlignCenter);
         DestinationMap_L = new QLabel(SelfDriving_T);
         DestinationMap_L->setObjectName(QStringLiteral("DestinationMap_L"));
-        DestinationMap_L->setGeometry(QRect(260, 40, 151, 23));
+        DestinationMap_L->setGeometry(QRect(240, 40, 151, 23));
         DestinationMap_L->setAlignment(Qt::AlignCenter);
         Market_RB = new QRadioButton(SelfDriving_T);
         Paths_RBs->addButton(Market_RB);
@@ -156,18 +157,26 @@ public:
         MapStart_B = new QPushButton(SelfDriving_T);
         MapStart_B->setObjectName(QStringLiteral("MapStart_B"));
         MapStart_B->setEnabled(false);
-        MapStart_B->setGeometry(QRect(200, 40, 41, 21));
+        MapStart_B->setGeometry(QRect(180, 40, 41, 21));
         QIcon icon4;
         icon4.addFile(QStringLiteral(":/arrows/images/smallarrow_start.png"), QSize(), QIcon::Normal, QIcon::Off);
         MapStart_B->setIcon(icon4);
         MapStart_B->setIconSize(QSize(30, 35));
         MapDest_B = new QPushButton(SelfDriving_T);
         MapDest_B->setObjectName(QStringLiteral("MapDest_B"));
-        MapDest_B->setGeometry(QRect(200, 10, 41, 21));
+        MapDest_B->setGeometry(QRect(180, 10, 41, 21));
         QIcon icon5;
         icon5.addFile(QStringLiteral(":/arrows/images/smallarrow_dest.png"), QSize(), QIcon::Normal, QIcon::Off);
         MapDest_B->setIcon(icon5);
         MapDest_B->setIconSize(QSize(30, 35));
+        DestConfirm_B = new QPushButton(SelfDriving_T);
+        DestConfirm_B->setObjectName(QStringLiteral("DestConfirm_B"));
+        DestConfirm_B->setEnabled(false);
+        DestConfirm_B->setGeometry(QRect(390, 30, 34, 30));
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/arrows/images/rightsymbol.jpeg"), QSize(), QIcon::Normal, QIcon::Off);
+        DestConfirm_B->setIcon(icon6);
+        DestConfirm_B->setIconSize(QSize(50, 30));
         tabWidget->addTab(SelfDriving_T, QString());
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -208,6 +217,7 @@ public:
         Market_RB->setText(QApplication::translate("MainWindow", "MARKET", nullptr));
         MapStart_B->setText(QString());
         MapDest_B->setText(QString());
+        DestConfirm_B->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(SelfDriving_T), QApplication::translate("MainWindow", "SelfDriving", nullptr));
     } // retranslateUi
 

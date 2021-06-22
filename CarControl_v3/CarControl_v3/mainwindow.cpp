@@ -56,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //self driving mode
     connect(ui->MapDest_B,SIGNAL(pressed()),this,SLOT(MapDest_Select()));
     connect(ui->MapStart_B,SIGNAL(pressed()),this,SLOT(MapStart_Select()));
+    connect(ui->DestConfirm_B,SIGNAL(pressed()),this,SLOT(MapConfirmLocations()));
 
     connect(ui->Go_B,SIGNAL(pressed()),this,SLOT(GoPath()));
 
@@ -63,85 +64,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->Paths_RBs->setId(ui->Home_RB,HOME_PATH_ID);
     ui->Paths_RBs->setId(ui->Work_RB,WORK_PATH_ID);
     ui->Paths_RBs->setId(ui->Market_RB,MARKET_PATH_ID);
-    //initialize array of movement functions
-    Move_Functions[0]= &MainWindow::Move_Forward;
-    Move_Functions[1]= &MainWindow::Move_Backward;
-    Move_Functions[2]= &MainWindow::Move_Right;
-    Move_Functions[3]= &MainWindow::Move_Left;
-    Move_Functions[4]= &MainWindow::StopFront;
-    Move_Functions[5]= &MainWindow::StopRear;
 
 
-    Pen.setWidth(5);
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
-    //draw borders
-    Pen.setColor(QColor(0,0,0));
-    Pen.setStyle(Qt::SolidLine);
-    FixedMap.moveTo(0,0);
-    FixedMap.lineTo(0,260);
-    FixedMap.lineTo(390,260);
-    FixedMap.lineTo(390,0);
-    FixedMap.lineTo(0,0);
-    Path.closeSubpath();
-    scene->addPath(FixedMap,Pen,Brush);
-    FixedMap=QPainterPath();
-    //change color pin
-    Pen.setColor(QColor(0,0,255));
-    Pen.setStyle(Qt::DashDotLine);
-
-    for(int mapcounter=0;mapcounter<ROADS_NO;mapcounter++){
-        FixedMap.moveTo(((MapRoads[mapcounter].x_start+MAPOFFSET_X)*MAPFACTOR_X),((MAPOFFSET_Y-MapRoads[mapcounter].y_start)*MAPFACTOR_Y));
-        FixedMap.lineTo(((MapRoads[mapcounter].x_end+MAPOFFSET_X)*MAPFACTOR_X),((MAPOFFSET_Y-MapRoads[mapcounter].y_end)*MAPFACTOR_Y));
-    }
-
-    Path.closeSubpath();
-    scene->addPath(FixedMap,Pen,Brush);
-    FixedMap=QPainterPath();
-    Pen.setColor(QColor(255,0,0));
-    Pen.setWidth(8);
-    //point home
-    FixedMap.moveTo(0,260);
-    FixedMap.lineTo(2,258);
-    FixedMap.moveTo(2,260);
-    FixedMap.lineTo(0,258);
-    //point maret
-    FixedMap.moveTo(195,132);
-    FixedMap.lineTo(197,130);
-    FixedMap.moveTo(197,132);
-    FixedMap.lineTo(195,130);
-    //point work
-    FixedMap.moveTo(390,0);
-    FixedMap.lineTo(388,2);
-    FixedMap.moveTo(388,0);
-    FixedMap.lineTo(390,2);
-
-    Path.closeSubpath();
-    scene->addPath(FixedMap,Pen,Brush);
-
-
-    /**********************************PATHS*************************************/
-    QFile file("/home/pi/Desktop/Paths.txt");
-    file.open(QIODevice::ReadWrite);
-    if (!file.isOpen()){
-        return;
-    }
-    QTextStream stream(&file);
-    // read number of paths
-    num_paths=(stream.readLine()).toInt();
-    for (int path_count = 0; path_count < num_paths; path_count++){
-        // read number of commands of the path
-        num_path_command=(stream.readLine()).toInt();
-        path_array_ptr[path_count] = new int*[num_path_command];
-        for (int command_counter = 0; command_counter < num_path_command; command_counter++){
-            path_array_ptr[path_count][command_counter] = new int[2];
-            QString line = stream.readLine();
-            for (int counter = 0; counter < 2; counter++){
-                //read line of command
-                path_array_ptr[path_count][command_counter][counter] = (line.split(" ")[counter]).toInt();
-            }
-        }
-    }
+    MapFixedPath_Draw();
 }
 
 MainWindow::~MainWindow()
@@ -211,34 +138,10 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e){
 void MainWindow::CalculateSpeed(int x){
     speed=SPEED_FACTOR*x;
 }
-//self driving mode
-void MainWindow::CheckPath(){
-    int counter;
-    int RB_CheckedId=ui->Paths_RBs->checkedId();
-    speed=SelfDriving_speed;
-    switch(RB_CheckedId){
-    case HOME_PATH_ID:
-        for(counter=0;counter<HOME_PATH_SIZE;counter++){
-            (this->*Move_Functions[path_array_ptr[HOME_PATH_ID][counter][0]])();
-            delay(1000*path_array_ptr[HOME_PATH_ID][counter][1]*CARSPEED);
-        }
-        break;
-    case WORK_PATH_ID:
-        for(counter=0;counter<WORK_PATH_SIZE;counter++){
-            (this->*Move_Functions[path_array_ptr[WORK_PATH_ID][counter][0]])();
-            delay(1000*path_array_ptr[WORK_PATH_ID][counter][1]*CARSPEED);
-        }
-        break;
-    default:
-        break;
-    }
-    speed=ui->SpeedSlider->value();
-    speed*=SPEED_FACTOR;
-}
-
+/*
 void MainWindow::paintEvent(QPaintEvent *event)
 {
-    /*
+
     if(DrawFlag==1){
         Painter.begin(this); //Specify the current window as a drawing device;
         Painter.setPen(Pen);
@@ -260,8 +163,9 @@ void MainWindow::paintEvent(QPaintEvent *event)
         y_start=y_end;
     }
     DrawFlag=0;
-*/
+
 }
+*/
 void MainWindow::MapDest_Select(){
     int RB_CheckedId=ui->Paths_RBs->checkedId();
     if(RB_CheckedId!=-1){
@@ -280,18 +184,32 @@ void MainWindow::MapDest_Select(){
         ui->Paths_RBs->checkedButton()->setChecked(FALSE);
         ui->Paths_RBs->setExclusive(TRUE);
 
-        //enable go button
-        ui->Go_B->setEnabled(TRUE);
+        //enable confirm button
+        ui->DestConfirm_B->setEnabled(TRUE);
 
+    }
+    else if(StartLocation.x!=-1){
+        //activate dest selection
+        ui->MapStart_B->setEnabled(TRUE);
+        //deactivate start selection
+        ui->MapDest_B->setEnabled(FALSE);
+
+        //enable confirm button
+        ui->DestConfirm_B->setEnabled(TRUE);
     }
 }
 void MainWindow::MapStart_Select(){
     int RB_CheckedId=ui->Paths_RBs->checkedId();
+    //deactivate dest selection
+    ui->MapStart_B->setEnabled(FALSE);
+    //activate start selection
+    ui->MapDest_B->setEnabled(TRUE);
+    //disable go and confirm buttons
+    ui->Go_B->setEnabled(FALSE);
+    ui->DestConfirm_B->setEnabled(FALSE);
+
     if(RB_CheckedId!=-1){
-        //deactivate dest selection
-        ui->MapStart_B->setEnabled(FALSE);
-        //activate start selection
-        ui->MapDest_B->setEnabled(TRUE);
+
         //update location coordinates
         DestLocation=MapLocations[RB_CheckedId];
 
@@ -306,16 +224,50 @@ void MainWindow::MapStart_Select(){
     }
 
 }
-void MainWindow::GoPath(){
-    //update destination
-    MapStart_Select();
+void MainWindow::MapConfirmLocations(){
+    //update desination
+    int RB_CheckedId=ui->Paths_RBs->checkedId();
+    if(RB_CheckedId!=-1){
+        //update location coordinates
+        DestLocation=MapLocations[RB_CheckedId];
 
+        //change label text
+        ui->DestinationMap_L->setText(ui->Paths_RBs->checkedButton()->text());
+
+        //unselect selected radiobutton
+        ui->Paths_RBs->setExclusive(FALSE);
+        ui->Paths_RBs->checkedButton()->setChecked(FALSE);
+        ui->Paths_RBs->setExclusive(TRUE);
+
+        //enable go and confirm buttons
+        ui->Go_B->setEnabled(TRUE);
+
+        //show path
+        MapFixedPath_Draw();
+        MapMovePath=0;
+        PathPlan(StartLocation.x,StartLocation.y,DestLocation.x,DestLocation.y);
+    }
+    else if(DestLocation.x!=-1){
+        //enable go and confirm buttons
+        ui->Go_B->setEnabled(TRUE);
+        //show path
+        MapFixedPath_Draw();
+        MapMovePath=0;
+        PathPlan(StartLocation.x,StartLocation.y,DestLocation.x,DestLocation.y);
+    }
+}
+void MainWindow::GoPath(){
+    //disable dest confirm
+    ui->DestConfirm_B->setEnabled(FALSE);
     if(DestLocation.x!=-1){
         //update speed
         speed=SelfDriving_speed;
 
         //deactivate manual mode
         ui->Manual_T->setEnabled(FALSE);
+
+        //move the car
+        MapMovePath=1;
         PathPlan(StartLocation.x,StartLocation.y,DestLocation.x,DestLocation.y);
 
         /************************after finishing the path***********************/
@@ -325,18 +277,74 @@ void MainWindow::GoPath(){
         //disable go button
         ui->Go_B->setEnabled(FALSE);
 
-        //clear labels
+        //activate dest button
+        ui->MapDest_B->setEnabled(TRUE);
+        //deactivate start button
+        ui->MapStart_B->setEnabled(FALSE);
+
+        //update start label
+        ui->StartingPointMap_L->setText(ui->DestinationMap_L->text());
+        //clear dest label
         ui->DestinationMap_L->setText("Choose from map");
-        ui->StartingPointMap_L->setText("Choose from map");
 
         //update for start position
-       // StartLocation=DestLocation;
+        StartLocation=DestLocation;
         //update for new destination
         DestLocation={-1,-1};
 
         //return speed to old value
         speed=ui->SpeedSlider->value();
         speed*=SPEED_FACTOR;
+
+        //draw old scene
+        delay(1000);
+
+        MapFixedPath_Draw();
     }
+}
+void MainWindow::MapFixedPath_Draw(){
+    scene->clear();
+
+    //draw borders
+    Pen.setWidth(5);
+    Pen.setColor(QColor(0,0,0));
+    Pen.setStyle(Qt::SolidLine);
+    FixedMap.moveTo(0,0);
+    FixedMap.lineTo(0,260);
+    FixedMap.lineTo(390,260);
+    FixedMap.lineTo(390,0);
+    FixedMap.lineTo(0,0);
+    scene->addPath(FixedMap,Pen,Brush);
+    FixedMap=QPainterPath();
+    //change color pin
+    Pen.setColor(QColor(0,0,255));
+    Pen.setStyle(Qt::DashDotLine);
+
+    for(int mapcounter=0;mapcounter<ROADS_NO;mapcounter++){
+        FixedMap.moveTo(((MapRoads[mapcounter].x_start+MAPOFFSET_X)*MAPFACTOR_X),((MAPOFFSET_Y-MapRoads[mapcounter].y_start)*MAPFACTOR_Y));
+        FixedMap.lineTo(((MapRoads[mapcounter].x_end+MAPOFFSET_X)*MAPFACTOR_X),((MAPOFFSET_Y-MapRoads[mapcounter].y_end)*MAPFACTOR_Y));
+    }
+
+    scene->addPath(FixedMap,Pen,Brush);
+    FixedMap=QPainterPath();
+    Pen.setColor(QColor(255,0,0));
+    Pen.setWidth(8);
+    //point home
+    FixedMap.moveTo(0,260);
+    FixedMap.lineTo(2,258);
+    FixedMap.moveTo(2,260);
+    FixedMap.lineTo(0,258);
+    //point maret
+    FixedMap.moveTo(195,132);
+    FixedMap.lineTo(197,130);
+    FixedMap.moveTo(197,132);
+    FixedMap.lineTo(195,130);
+    //point work
+    FixedMap.moveTo(390,0);
+    FixedMap.lineTo(388,2);
+    FixedMap.moveTo(388,0);
+    FixedMap.lineTo(390,2);
+
+    scene->addPath(FixedMap,Pen,Brush);
 }
 

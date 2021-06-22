@@ -211,7 +211,7 @@
      <widget class="QLabel" name="StartingPoint_L">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>0</x>
         <y>10</y>
         <width>141</width>
         <height>23</height>
@@ -224,7 +224,7 @@
      <widget class="QLabel" name="Destination_L">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>240</x>
         <y>10</y>
         <width>141</width>
         <height>23</height>
@@ -269,7 +269,7 @@
      <widget class="QLabel" name="StartingPointMap_L">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>0</x>
         <y>40</y>
         <width>151</width>
         <height>23</height>
@@ -285,7 +285,7 @@
      <widget class="QLabel" name="DestinationMap_L">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>240</x>
         <y>40</y>
         <width>151</width>
         <height>23</height>
@@ -320,7 +320,7 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>180</x>
         <y>40</y>
         <width>41</width>
         <height>21</height>
@@ -343,7 +343,7 @@
      <widget class="QPushButton" name="MapDest_B">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>180</x>
         <y>10</y>
         <width>41</width>
         <height>21</height>
@@ -360,6 +360,32 @@
        <size>
         <width>30</width>
         <height>35</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="DestConfirm_B">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>30</y>
+        <width>34</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/arrows/images/rightsymbol.jpeg</normaloff>:/arrows/images/rightsymbol.jpeg</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>30</height>
        </size>
       </property>
      </widget>

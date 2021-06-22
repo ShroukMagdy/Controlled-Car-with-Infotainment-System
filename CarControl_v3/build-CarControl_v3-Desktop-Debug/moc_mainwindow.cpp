@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[15];
-    char stringdata0[149];
+    char stringdata0[159];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,16 +42,17 @@ QT_MOC_LITERAL(7, 65, 9), // "StopFront"
 QT_MOC_LITERAL(8, 75, 8), // "StopRear"
 QT_MOC_LITERAL(9, 84, 14), // "CalculateSpeed"
 QT_MOC_LITERAL(10, 99, 1), // "x"
-QT_MOC_LITERAL(11, 101, 9), // "CheckPath"
-QT_MOC_LITERAL(12, 111, 14), // "MapDest_Select"
-QT_MOC_LITERAL(13, 126, 15), // "MapStart_Select"
-QT_MOC_LITERAL(14, 142, 6) // "GoPath"
+QT_MOC_LITERAL(11, 101, 14), // "MapDest_Select"
+QT_MOC_LITERAL(12, 116, 15), // "MapStart_Select"
+QT_MOC_LITERAL(13, 132, 19), // "MapConfirmLocations"
+QT_MOC_LITERAL(14, 152, 6) // "GoPath"
 
     },
     "MainWindow\0Move_Forward\0\0Move_Backward\0"
     "Move_Right\0Move_Left\0Stop\0StopFront\0"
-    "StopRear\0CalculateSpeed\0x\0CheckPath\0"
-    "MapDest_Select\0MapStart_Select\0GoPath"
+    "StopRear\0CalculateSpeed\0x\0MapDest_Select\0"
+    "MapStart_Select\0MapConfirmLocations\0"
+    "GoPath"
 };
 #undef QT_MOC_LITERAL
 
@@ -113,9 +114,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 5: _t->StopFront(); break;
         case 6: _t->StopRear(); break;
         case 7: _t->CalculateSpeed((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->CheckPath(); break;
-        case 9: _t->MapDest_Select(); break;
-        case 10: _t->MapStart_Select(); break;
+        case 8: _t->MapDest_Select(); break;
+        case 9: _t->MapStart_Select(); break;
+        case 10: _t->MapConfirmLocations(); break;
         case 11: _t->GoPath(); break;
         default: ;
         }

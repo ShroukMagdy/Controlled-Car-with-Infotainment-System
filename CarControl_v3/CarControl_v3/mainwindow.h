@@ -31,42 +31,34 @@
 #define TIMER_TIMEOUT                   150
 #define PWM_FRONT                       60          //fixed - done for optimization of rotation
 /*******************************SELFDRIVINGMODE****************************/
-//indicies for functions call
-#define MOVEFORWARD_INDEX           0
-#define MOVEBACKWARD_INDEX          1
-#define MOVERIGHT_INDEX             2
-#define MOVELEFT_INDEX              3
-#define STOPFRONT_INDEX             4
-#define STOPREAR_INDEX              5
+#define PATHS_NO                        2
+#define HOME_PATH_SIZE                  4
+#define WORK_PATH_SIZE                  4
 
-#define PATHS_NO                    2
-#define HOME_PATH_SIZE              4
-#define WORK_PATH_SIZE              4
+#define HOME_PATH_ID                    0
+#define MARKET_PATH_ID                  1
+#define WORK_PATH_ID                    2
 
-#define HOME_PATH_ID                0
-#define MARKET_PATH_ID              1
-#define WORK_PATH_ID                2
+#define CARSPEED                        2       //sec/m
 
-#define CARSPEED                    2       //sec/m
+#define ROADS_NO                        3
+#define INTERSECTIONS_NO                2
+#define LOCATIONS_NO                    3
 
-#define ROADS_NO                    3
-#define INTERSECTIONS_NO            2
-#define LOCATIONS_NO                3
+#define ORIENTATION_VERTICAL            0
+#define ORIENTATION_HORIZENTAL          1
 
-#define ORIENTATION_VERTICAL        0
-#define ORIENTATION_HORIZENTAL      1
+#define MOVING_FORWARD                  0
+#define MOVING_REVERSE                  1
 
-#define MOVING_FORWARD              0
-#define MOVING_REVERSE              1
+#define MAPOFFSET_X                     0
+#define MAPOFFSET_Y                     10
 
-#define MAPOFFSET_X                 0
-#define MAPOFFSET_Y                 10
+#define MAPLIMIT_X                      390
+#define MAPLIMIT_Y                      260
 
-#define MAPLIMIT_X                  390
-#define MAPLIMIT_Y                  260
-
-#define MAPFACTOR_X                 39
-#define MAPFACTOR_Y                 26
+#define MAPFACTOR_X                     39
+#define MAPFACTOR_Y                     26
 
 typedef struct
 {
@@ -116,12 +108,13 @@ class MainWindow : public QMainWindow
     /*******************************SELFDRIVINGMODE****************************/
 
     int SelfDriving_speed=20;
-    //array of pointers to functions for movement
-    void (MainWindow::*Move_Functions[6])();
-    int **path_array_ptr[10];
+    int MapMovePath=0;
 
-    QPainterPath Path;
+    //borders , roads
     QPainterPath FixedMap;
+    //current move on map
+    QPainterPath CarLocationMap;
+
     QPainter Painter;
     QPen Pen;
 
@@ -150,13 +143,14 @@ class MainWindow : public QMainWindow
 
 public:
     void PathPlan (int current_x, int current_y, int dest_x, int dest_y);
+    void MapFixedPath_Draw();
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 protected:
     void keyPressEvent(QKeyEvent *e);
     void keyReleaseEvent(QKeyEvent *e);
 
-    void paintEvent(QPaintEvent *event);
+    //void paintEvent(QPaintEvent *event);
 
 private:
     Ui::MainWindow *ui;
@@ -173,10 +167,11 @@ private slots:
     void StopRear();
     void CalculateSpeed(int x);
 
-    void CheckPath();
+    //void CheckPath();
 
     void MapDest_Select();
     void MapStart_Select();
+    void MapConfirmLocations();
     void GoPath();
 };
 

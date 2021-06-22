@@ -372,6 +372,7 @@ compiler_rcc_clean:
 qrc_resources.cpp: ../CarControl_v3/resources.qrc \
 		/usr/lib/qt5/bin/rcc \
 		../CarControl_v3/images/rightimg.png \
+		../CarControl_v3/images/rightsymbol.jpeg \
 		../CarControl_v3/images/smallarrow_start.png \
 		../CarControl_v3/images/upimg.png \
 		../CarControl_v3/images/downimg.png \

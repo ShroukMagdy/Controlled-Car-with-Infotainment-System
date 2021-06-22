@@ -10,7 +10,6 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
     int intersection_counter;
     int moving_flag=0;
     int in_destroad = 0;
-    int distance=0;
 
     AvailableDirections Current_AvailableDirections = {0,0,0,0};
     for (intersection_counter = 0; intersection_counter < INTERSECTIONS_NO;
@@ -27,10 +26,10 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                       MapIntersections[intersection_counter].road1_index<<" and road"<<
                       MapIntersections[intersection_counter].road2_index;
 
-            /******************************choose road***********************/
+            /********************************choose road*************************/
 
-            /************check available movements***********************/
-            /******************road1_horizental/road2_vertical***********************************/
+            /********************check available movements***********************/
+            /******************road1_horizental/road2_vertical*******************/
 
             if (MapRoads
                     [MapIntersections[intersection_counter].
@@ -58,7 +57,6 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                 }
                 /**********road2**************/
 
-
                 if (current_y ==
                         MapRoads[MapIntersections
                         [intersection_counter].road2_index].y_start)
@@ -78,10 +76,9 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                     Current_AvailableDirections.Forward_Vertical = 1;
                     Current_AvailableDirections.Reverse_Vertical = 1;
                 }
-
             }
-            /*******************check orientation of each road*******************************/
-            /******************road1_vertical/road2_horizental***********************************/
+            /****************check orientation of each road***********************/
+            /****************road1_vertical/road2_horizental**********************/
 
             else
                 if (MapRoads
@@ -131,7 +128,7 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                     }
                 }			//check orientation of each road
 
-            /***********************************************************************************************************/
+            /*********************************************************************/
             if (((current_x < dest_x)
                  && (Current_AvailableDirections.Forward_Horizental == 1))
                     || ((current_x > dest_x)
@@ -181,35 +178,18 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
     //loop till reaching the destination
     while ((current_x != dest_x) || (current_y != dest_y))
     {
+        /******************Move to start location*******************/
+        CarLocationMap=QPainterPath();
 
-        /**************************************check if destination in current road****************************************/
-        /*
-        if ((dest_x >= MapRoads[current_road].x_start) &&
-                (dest_y >= MapRoads[current_road].y_start) &&
-                (dest_x <= MapRoads[current_road].x_end) &&
-                (dest_y <= MapRoads[current_road].y_end))
-        {
-            in_destroad = 1;
-            //calculate distance
-            distance=sqrt(pow((dest_x-current_x),2)+pow((dest_y-current_y),2));
-            qDebug()<<"distance="<<distance;
+        //change color pin
+        Pen.setColor(QColor(0,255,0));
+        Pen.setStyle(Qt::SolidLine);
 
-            //real moving
-            Move_Forward();
-            delay(1000*distance*CARSPEED);
-
-            //update of current position
-            current_x = dest_x;
-            current_y = dest_y;
-
-            qDebug()<<"new point, x="<< current_x<<"y="<< current_y;
-        }
-        */
-        /****************************************************Moving************************************************************/
-
+        CarLocationMap.moveTo(((current_x+MAPOFFSET_X)*MAPFACTOR_X),((MAPOFFSET_Y-current_y)*MAPFACTOR_Y));
+        /****************************************************************/
         if (in_destroad == 0)
         {
-            /*************************************decide moving foraward or reverse*******************************************/
+            /*****************decide moving foraward or reverse******************/
             if (MapRoads[current_road].orientation == ORIENTATION_HORIZENTAL)
             {
                 if (current_x < dest_x)
@@ -218,14 +198,16 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                     current_x += 1;
                     qDebug()<<"new point, x="<< current_x<<"y="<< current_y;
                     if(currentloc_isintersection==1){
-                        if(moving_flag==MOVING_FORWARD){
-                            Move_Right();
+                        if(MapMovePath==1){
+                            if(moving_flag==MOVING_FORWARD){
+                                Move_Right();
+                            }
+                            else{
+                                Move_Left();
+                            }
+                            delay(1000);
+                            StopFront();
                         }
-                        else{
-                            Move_Left();
-                        }
-                        delay(1000);
-                        StopFront();
                         currentloc_isintersection=0;
                     }
                     moving_flag = MOVING_FORWARD;
@@ -236,14 +218,16 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                     current_x -= 1;
                     qDebug()<< "new point, x="<< current_x<<"y="<<current_y;
                     if(currentloc_isintersection==1){
-                        if(moving_flag==MOVING_FORWARD){
-                            Move_Left();
+                        if(MapMovePath==1){
+                            if(moving_flag==MOVING_FORWARD){
+                                Move_Left();
+                            }
+                            else{
+                                Move_Right();
+                            }
+                            delay(1000);
+                            StopFront();
                         }
-                        else{
-                            Move_Right();
-                        }
-                        delay(1000);
-                        StopFront();
                         currentloc_isintersection=0;
                     }
                     moving_flag = MOVING_REVERSE;
@@ -258,14 +242,16 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                     current_y += 1;
                     qDebug()<< "new point, x="<< current_x<<"y="<<current_y;
                     if(currentloc_isintersection==1){
-                        if(moving_flag==MOVING_FORWARD){
-                            Move_Left();
+                        if(MapMovePath==1){
+                            if(moving_flag==MOVING_FORWARD){
+                                Move_Left();
+                            }
+                            else{
+                                Move_Right();
+                            }
+                            delay(1000);
+                            StopFront();
                         }
-                        else{
-                            Move_Right();
-                        }
-                        delay(1000);
-                        StopFront();
                         currentloc_isintersection=0;
                     }
                     moving_flag = MOVING_FORWARD;
@@ -276,23 +262,26 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                     current_y -= 1;
                     qDebug()<< "new point, x="<< current_x<<"y="<<current_y;
                     if(currentloc_isintersection==1){
-                        if(moving_flag==MOVING_FORWARD){
-                            Move_Right();
+                        if(MapMovePath==1){
+                            if(moving_flag==MOVING_FORWARD){
+                                Move_Right();
+                            }
+                            else{
+                                Move_Left();
+                            }
+                            delay(1000);
+                            StopFront();
                         }
-                        else{
-                            Move_Left();
-                        }
-                        delay(1000);
-                        StopFront();
                         currentloc_isintersection=0;
                     }
                     moving_flag = MOVING_REVERSE;
                 }
             }
-            //real moving
-            Move_Forward();
-            delay(1000*1*CARSPEED);
-
+            if(MapMovePath==1){
+                //real moving
+                Move_Forward();
+                delay(1000*1*CARSPEED);
+            }
             /*****************************************check to change road**********************************************/
             for (intersection_counter = 0;
                  intersection_counter < INTERSECTIONS_NO;
@@ -326,7 +315,15 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
         }			//if not in dest road
         /**********************************************************************************************************************/
 
+        /**********************Draw current location******************/
+
+        CarLocationMap.lineTo(((current_x+MAPOFFSET_X)*MAPFACTOR_X),((MAPOFFSET_Y-current_y)*MAPFACTOR_Y));
+
+        scene->addPath(CarLocationMap,Pen,Brush);
+
+        /********************************************************/
     }				//while
     StopFront();
     StopRear();
+
 }
