@@ -201,11 +201,19 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                         if(MapMovePath==1){
                             if(moving_flag==MOVING_FORWARD){
                                 Move_Right();
+                                delay(3000);
+                                StopFront();
+                                delay(4000);
+                                Move_Left();
                             }
                             else{
                                 Move_Left();
+                                delay(3000);
+                                StopFront();
+                                delay(4000);
+                                Move_Right();
                             }
-                            delay(1000);
+                            delay(250);
                             StopFront();
                         }
                         currentloc_isintersection=0;
@@ -221,11 +229,19 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                         if(MapMovePath==1){
                             if(moving_flag==MOVING_FORWARD){
                                 Move_Left();
+                                delay(3000);
+                                StopFront();
+                                delay(4000);
+                                Move_Right();
                             }
                             else{
                                 Move_Right();
+                                delay(3000);
+                                StopFront();
+                                delay(4000);
+                                Move_Left();
                             }
-                            delay(1000);
+                            delay(250);
                             StopFront();
                         }
                         currentloc_isintersection=0;
@@ -245,11 +261,19 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                         if(MapMovePath==1){
                             if(moving_flag==MOVING_FORWARD){
                                 Move_Left();
+                                delay(3000);
+                                StopFront();
+                                delay(4000);
+                                Move_Right();
                             }
                             else{
                                 Move_Right();
+                                delay(3000);
+                                StopFront();
+                                delay(4000);
+                                Move_Left();
                             }
-                            delay(1000);
+                            delay(250);
                             StopFront();
                         }
                         currentloc_isintersection=0;
@@ -265,11 +289,19 @@ MainWindow::PathPlan (int current_x, int current_y, int dest_x, int dest_y)
                         if(MapMovePath==1){
                             if(moving_flag==MOVING_FORWARD){
                                 Move_Right();
+                                delay(3000);
+                                StopFront();
+                                delay(4000);
+                                Move_Left();
                             }
                             else{
                                 Move_Left();
+                                delay(3000);
+                                StopFront();
+                                delay(4000);
+                                Move_Right();
                             }
-                            delay(1000);
+                            delay(250);
                             StopFront();
                         }
                         currentloc_isintersection=0;

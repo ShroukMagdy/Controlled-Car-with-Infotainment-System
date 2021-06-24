@@ -138,34 +138,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e){
 void MainWindow::CalculateSpeed(int x){
     speed=SPEED_FACTOR*x;
 }
-/*
-void MainWindow::paintEvent(QPaintEvent *event)
-{
 
-    if(DrawFlag==1){
-        Painter.begin(this); //Specify the current window as a drawing device;
-        Painter.setPen(Pen);
-
-
-        Path.moveTo(x_start,y_start);
-        Path.lineTo(x_end,y_end);
-
-        Path.closeSubpath();
-        scene->addPath(Path,Pen,Brush);
-
-        Painter.end();
-        qDebug()<<"Before";
-        qDebug()<<"x_start="<<x_start;
-        qDebug()<<"y_start="<<y_start;
-        qDebug()<<"x_end="<<x_end;
-        qDebug()<<"y_end="<<y_end;
-        x_start=x_end;
-        y_start=y_end;
-    }
-    DrawFlag=0;
-
-}
-*/
 void MainWindow::MapDest_Select(){
     int RB_CheckedId=ui->Paths_RBs->checkedId();
     if(RB_CheckedId!=-1){

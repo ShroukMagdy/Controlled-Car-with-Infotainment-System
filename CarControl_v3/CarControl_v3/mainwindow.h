@@ -107,7 +107,7 @@ class MainWindow : public QMainWindow
     int speed=0;
     /*******************************SELFDRIVINGMODE****************************/
 
-    int SelfDriving_speed=20;
+    int SelfDriving_speed=40;
     int MapMovePath=0;
 
     //borders , roads
