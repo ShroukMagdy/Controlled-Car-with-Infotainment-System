@@ -1,0 +1,24 @@
+to use pins of pi as pwm from terminal
+https://www.youtube.com/watch?v=Zjr69DxgeW0&ab_channel=SmartPowerElectronics
+
+to use pins as pwm (coding)
+https://www.electronicwings.com/raspberry-pi/raspberry-pi-pwm-generation-using-python-and-c
+
+hardware pwm needs root to run 
+
+software pwm works (for qt)
+
+Notes:
+softPwmCreate (Pin no., initial value, PWM Range)
+
+This function is used to create software controlled PWM. We can generate PWM on any of the GPIO pin.
+
+Parameters:
+
+            Pin no. – GPIO pin on which we want to generate PWM.
+
+            Initial value – specify any initial value which is in between PWM range.
+
+            PWM range–we can provide range i.e. frequency range for PWM. Use 100 for the PWM range then the value can be anything from 0 to 100. These values are useful to generate PWM of various Duty cycle.
+
+Note: The minimum pulse width is 100 us to maintain low CPU usage. For this minimum pulse width, suggested PWM range is 100 which gives 100 Hz frequency. If we lower the value of PWM range then we will get higher frequency with less resolution. Or we can increase the value of PWM range, and then will get lower frequency with better resolution.

@@ -1,0 +1,8 @@
+to add images embedded in qt5 executable file
+https://www.youtube.com/watch?v=CTbpS0PN-JQ&ab_channel=ProgrammingKnowledge
+
+from project add new-QT - QT resource 
+in source files path add folder with the images
+
+for project for resource - just give it name then add prefix (like hierarchry)
+then add files (ur images)

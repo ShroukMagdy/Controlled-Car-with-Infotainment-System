@@ -1,0 +1,48 @@
+*difference bt qtconsoleapp and qtwidgetapp?
+qtconsoleapp : for console
+qtwidgetapp : to make widgets on app for target 
+to print on terminal , qDebug
+
+for qtwidgetapp
+class QMainWindow --> to have window with toolbar and buttons like min,max,close
+class QWidget --> u have window only
+
+Filestructure:
+Forms folder
+has file.ui ----> to put your widgets , change attributes
+Headers folder
+has mainwindow.h ----> create ur objects , add variables and methods
+Sources folder
+has main.cpp ---> nth
+has mainwindow.cpp ----> create instances from objects , implementation of methods
+
+
+create objects like pushbuttons
+---------------------------------
+in file.ui --> add pushbutton
+connect the pushbutton with its press and release with slot 
+(slot is added as method in file.h)
+connect(ui->pushButton,SIGNAL(pressed()),this,SLOT(click_increment()));
+
+connect(ui->pushButton,SIGNAL(released()),this,SLOT(click_stop()));
+
+
+create objects like timer
+--------------------------
+include QTimer.h
+connect(timer,SIGNAL(timeout()),this,SLOT(timer_increment()));
+start timer by number of ticks
+after timeout -- the method in slot is executed
+
+there is another type of timer 
+qtimerelapsed ---> used to know the elapsed time
+no need to start with ticks --> ust start
+
+Pi control
+------------
+include wiringpi.h
+in file.pro 
+LIBS += -L/usr/local/include -lwiringPi
+
+call wiringsetup - and pins setup like direction
+

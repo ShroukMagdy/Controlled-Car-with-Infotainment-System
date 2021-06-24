@@ -1,0 +1,31 @@
+Mechanical:
+-----------
+*motor in the steering part connected to gears , the gears rotate the steering column , the steering column makes movement to the front axle of wheels so can move right or left 
+
+
+Electrical:
+-----------
+*2 batteries 12v 9Ah yuasa
+*2 motor drivers 
+https://images-na.ssl-images-amazon.com/images/I/A1TemgvjKjL.pdf
+*2 dc motors for rear wheels , moving forward and backward
+1 dc motor for front wheels to give direction right or left
+
+
+
+extra notes:
+*the 2 rear motors have speed sensors embedded with the gears part 
+*there was a common ground in the front part of car
+*there are 2 buttons beside the steering wheel , can be used for lights or power the car on/off
+
+
+Notes for speed:
+-----------------
+rear speed 10 - 20 pwm(%)
+speed 0.25m/s at pwm 10
+speed 0.5m/s at pwm 20
+
+front speed fixed 60 pwm(%) -- for rotation as 100 is tough
+
+*motor rpm 13500 reduced by gears
+r=12cm

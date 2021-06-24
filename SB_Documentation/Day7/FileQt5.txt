@@ -1,0 +1,30 @@
+
+/**********************************PATHS*************************************/
+    QFile file("/home/pi/Desktop/Paths.txt");
+    file.open(QIODevice::ReadWrite);
+    if (!file.isOpen()){
+        return;
+    }
+    QTextStream stream(&file);
+    // read number of paths
+    num_paths=(stream.readLine()).toInt();
+    for (int path_count = 0; path_count < num_paths; path_count++){
+        // read number of commands of the path
+        num_path_command=(stream.readLine()).toInt();
+        path_array_ptr[path_count] = new int*[num_path_command];
+        for (int command_counter = 0; command_counter < num_path_command; command_counter++){
+            path_array_ptr[path_count][command_counter] = new int[2];
+            QString line = stream.readLine();
+            for (int counter = 0; counter < 2; counter++){
+                //read line of command
+                path_array_ptr[path_count][command_counter][counter] = (line.split(" ")[counter]).toInt();
+            }
+        }
+    }
+
+links:
+------
+line parsing file readme
+https://doc.qt.io/qt-5/qfile.html
+
+https://stackoverflow.com/questions/5444959/read-a-text-file-line-by-line-in-qt
