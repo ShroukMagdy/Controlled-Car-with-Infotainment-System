@@ -2,6 +2,8 @@ Mechanical:
 -----------
 *motor in the steering part connected to gears , the gears rotate the steering column , the steering column makes movement to the front axle of wheels so can move right or left 
 
+**take care:
+two front wheels are not aligned so while moving forward , it shifts right or left
 
 Electrical:
 -----------
@@ -15,6 +17,7 @@ https://images-na.ssl-images-amazon.com/images/I/A1TemgvjKjL.pdf
 
 extra notes:
 *the 2 rear motors have speed sensors embedded with the gears part 
+but these sensors are not reliable , they have been tested & their readings not accurate
 *there was a common ground in the front part of car
 *there are 2 buttons beside the steering wheel , can be used for lights or power the car on/off
 
