@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>Media/Icons/back_icon.png</file>
+        <file>Media/Icons/camera.png</file>
+        <file>Media/Icons/camera2.png</file>
+        <file>Media/Icons/Esc.png</file>
+        <file>Media/Icons/home_icon.png</file>
+        <file>Media/Icons/music_icon.png</file>
+        <file>Media/Icons/music-icon-in-flat-style-musical-note-icon-vector-21166446.jpg</file>
+        <file>Media/Icons/s1.png</file>
+        <file>Media/Icons/s2.jpg</file>
+        <file>Media/Icons/s3.png</file>
+        <file>Media/Icons/s4.png</file>
+        <file>Media/Icons/s5.jpg</file>
+        <file>Media/Icons/s5.png</file>
+        <file>Media/Icons/settings_icon.png</file>
+        <file>Media/Icons/speed.gif</file>
+        <file>Media/Icons/stars_1.jpg</file>
+        <file>Media/Icons/stars_2.jpg</file>
+        <file>Media/Icons/tesla.jpg</file>
+        <file>Media/Icons/video_icon.png</file>
+        <file>Media/Icons/pause_icon.png</file>
+        <file>Media/Icons/play_icon.png</file>
+        <file>Media/Icons/stop_icon.png</file>
+        <file>Media/Icons/volumeDown_icon.png</file>
+        <file>Media/Icons/volumeUp_icon.png</file>
+        <file>Media/Icons/mute_icon.png</file>
+        <file>Media/Icons/next.png</file>
+        <file>Media/Icons/prevMusic.png</file>
+        <file>Media/Icons/nextMusic.png</file>
+    </qresource>
+</RCC>
