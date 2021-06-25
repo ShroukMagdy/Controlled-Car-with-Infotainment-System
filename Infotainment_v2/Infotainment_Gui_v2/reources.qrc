@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/files">
+        <file>files/2Pac_EyesOnMe.mp3</file>
+        <file>files/Coldplay_Adv.mp3</file>
+        <file>files/Coldplay_ASkyFullOfStars.mp3</file>
+        <file>files/EdSheeran_Galway Girl.mp3</file>
+        <file>files/EdSheeran_ShapeofYou.mp3</file>
+        <file>files/EdSheeran_Thinking_Out_Loud.mp3</file>
+        <file>files/ImagineDragons_WhateverItTakes.mp4</file>
+        <file>files/mzmar_el3sfor.mp3</file>
+        <file>files/RagnBone_ManHumanOfficial.mp4</file>
+        <file>files/Taylor_Swift_Lover.mp3</file>
+    </qresource>
+</RCC>
