@@ -86,7 +86,7 @@ Controlling the movement of the car remotely with a QT5  based GUI tool on the l
 Controlling the movement of the car with a GUI tool on the laptop . The GUI tool is made using QT5 , for manual mode, it will have 4 arrows (forward , backward, left,right) and for self driving mode , the car moves on a specific path from the start point of the user’s choice till the destination .
 The 4 motors of the car will be working on the raspberry pi. The communication between the tool and the raspberry pi in the car will be through WIFI.
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.003.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.003.png)
 
 Figure (1) Block Diagram
 ## Setup and configuration
@@ -113,35 +113,35 @@ psk="pass"
 ## Hardware Components
 - Raspberry Pi
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.004.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.004.png)
 
 Figure (2) Raspberry Pi
 
 - 3 Dc motors 12v - 13500rpm
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.005.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.005.png)
 
 Figure (3) DC Motor
 
 - 2 MD10C R3.0 10Amp DC Motor Driver
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.006.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.006.png)
 
 Figure (4) Motor Driver
 
 - 2 Batteries 12v - 9A
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.007.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.007.png)
 
 Figure (5) Battery
 ## Schematic Diagram
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.008.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.008.png)
 
 Figure (6) Schematic
 ## Manual mode
 This mode allows controlling the car movement and its speed. 
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.009.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.009.png)
 
 Figure (7) Manual Mode GUI
 
@@ -168,7 +168,7 @@ The configured buttons are ‘w’ for forward , ‘s’ for backward , ‘a’ 
 ## Self driving mode
 The mode is used for moving the car from start location to destination depending on the user’s choice and the path is generated depending on an algorithm.
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.010.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.010.png)
 
 Figure (8) Self Driving Mode GUI
 
@@ -196,7 +196,7 @@ The map is composed of roads and the intersections between the roads have to be 
   - If the car reaches an intersection , the car checks the orientation of the current road , the other road and the direction of movement to decide the next turn if it will be right or left
   - By checking all of these conditions after each step , the car reaches the destination
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.011.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.011.png)
 
 Figure (9) Path shown on map
 # Infotainment system
@@ -205,7 +205,7 @@ With the growing demand for luxurious, safe, and smart vehicles, automotive manu
 The IVI (In-vehicle infotainment ) can be described as a combination of vehicle systems which are used to deliver entertainment and information to the driver and the passengers through audio/video interfaces, back-up camera, speedometer and control elements like touch screen displays, button panel, voice commands, and many other features.
 
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.012.jpeg)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.012.jpeg)
 
 Figure (10) Infotainment System
 
@@ -315,7 +315,7 @@ Timers , Push Buttons , Widgets , Videos , Audio and much more
 ### Qt for Embedded Linux
 Qt for Embedded Linux is a C++ framework for GUI and application development for embedded devices. It runs on a variety of processors, usually with Embedded Linux. Qt for Embedded Linux provides the standard Qt API for embedded devices with a lightweight window system.
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.013.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.013.png)
 
 Figure (11) QT
 
@@ -325,7 +325,7 @@ Qt for Embedded Linux applications write directly to the framebuffer, eliminatin
 - In GUI programming, when we change one widget, we often want another widget to be notified. More generally, we want objects of any kind to be able to communicate with one another. For example, if a user clicks a Close button, we probably want the window's[ close()](https://doc.qt.io/qt-5/qwidget.html#close) function to be called.
 - In Qt, we have an alternative to the callback technique: We use signals and slots. A signal is emitted when a particular event occurs. Qt's widgets have many predefined signals, but we can always subclass widgets to add our own signals to them. A slot is a function that is called in response to a particular signal. Qt's widgets have many predefined slots, but it is common practice to subclass widgets and add your own slots so that you can handle the signals that you are interested in.
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.014.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.014.png)
 
 Figure (12) Signals and Slots
 ### Installed Libraries:
@@ -365,31 +365,31 @@ Check if gstreamer libraries is downloaded, if not:
 ## Hardware Components
 - Raspberry Pi
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.015.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.015.png)
 
 Figure (13) Raspberry Pi
 
 - Raspberry Pi camera module V2
 
-`     `*![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.016.jpeg)*
+`     `*![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.016.jpeg)*
 
 Figure (14) Camera Module
 
 - Speakers
 
-`         `*![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.017.jpeg)*
+`         `*![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.017.jpeg)*
 
 Figure (15) Speaker
 
 - 7-inch Capacitive Touch Screen LCD (B) 
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.018.jpeg)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.018.jpeg)
 
 Figure (16) LCD
 
 ***Main Features of IVI***
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.019.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.019.png)
 
 Figure (17) IVI GUI
 
@@ -412,7 +412,7 @@ Information Services
 
 Music players are media software that are specifically designed to store and play audio files either through speakers or headphones connected to the raspberry pi.
 
-`             `**![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.020.png)**
+`             `**![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.020.png)**
 
 Figure (18) MP3 GUI
 
@@ -420,7 +420,7 @@ Figure (18) MP3 GUI
 
 Video players are media software that are able to play music and display videos on the Lcd through HDMI and USB cables.
 
-`                  `**![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.021.png)**
+`                  `**![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.021.png)**
 
 Figure (19) MP4 GUI
 ### Information Services
@@ -428,7 +428,7 @@ Figure (19) MP4 GUI
 
 The camera widget will be opened when the car moves backward.
 
-![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.022.png)
+![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.022.png)
 
 Figure (20) Camera GUI
 
