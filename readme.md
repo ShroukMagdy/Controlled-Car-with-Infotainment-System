@@ -436,7 +436,7 @@ Figure (20) Camera GUI
 
 Settings panel configures the Date and Time , any missing data will be not updated and a warning message will be displayed on the Lcd.
 
-`     `**![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.023.png)**
+`     `**![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.023.png)**
 
 Figure (21) Setting GUI
 # References
