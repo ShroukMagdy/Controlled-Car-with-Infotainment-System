@@ -1,4 +1,3 @@
-﻿![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.001.png)
 
 
 |<p>![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.002.png)</p><p>Information Technology Institute</p><p>Embedded Systems Track</p><p></p><p>**Controlled Car with Infotainment System**</p><p></p>|
