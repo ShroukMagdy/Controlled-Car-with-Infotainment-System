@@ -1,6 +1,6 @@
 
 
-|<p>![](Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.002.png)</p><p>Information Technology Institute</p><p>Embedded Systems Track</p><p></p><p>**Controlled Car with Infotainment System**</p><p></p>|
+|<p>![](Images/Aspose.Words.43aea3c4-fb7f-47a1-92b4-722d646b845c.002.png)</p><p>Information Technology Institute</p><p>Embedded Systems Track</p><p></p><p>**Controlled Car with Infotainment System**</p><p></p>|
 | :-: |
 |<p>Submitted by :</p><p>Ahmed Ali Hassan Ali</p><p>Bassem Amgad Ahmed Atef</p><p>Hossam ElDin Magdy Ahmed Hassinen</p><p>Nihal Khaled Mohammed Mohammed</p><p>Roanne Khaled Mohammed Mohammed</p><p>Shrouk Magdy Ibrahim Zaki</p>|
 |<p>Under Supervision of</p><p>Eng. Ahmed El\_Ashmawy</p>|
