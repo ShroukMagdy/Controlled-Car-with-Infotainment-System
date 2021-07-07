@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>A function is triggered when the user is pressing a key in the input field.</p>
+
+<p>onkeyup - <span id="demo1"></span></p>
+<p>onkeydown - <span id="demo2"></span></p>
+<input type="text" onkeydown="myFunctiondown(event)"  onkeyup="myFunctionup(event)">
+<script>
+function myFunctiondown(event) {
+var key = event.key; 
+  document.getElementById("demo2").innerHTML = "The KEY: " + key;
+}
+function myFunctionup(event) {
+var key = event.key; 
+  document.getElementById("demo1").innerHTML = "The KEY: " + key;
+}
+</script>
+
+</body>
+</html>

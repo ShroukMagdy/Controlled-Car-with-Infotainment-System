@@ -1,0 +1,4 @@
+to pass variables from javascript to php
+https://www.tutorialspoint.com/How-to-pass-JavaScript-variables-to-PHP
+
+

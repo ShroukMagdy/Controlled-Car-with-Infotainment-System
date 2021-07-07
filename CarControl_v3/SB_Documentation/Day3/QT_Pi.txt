@@ -1,0 +1,10 @@
+useful links
+------------
+to make helloworld app & label widget
+http://helloraspberrypi.blogspot.com/2015/04/install-qt5-on-raspberry-piraspbian.html
+
+the video link
+https://www.youtube.com/watch?v=a8g83iYFwF0&ab_channel=anErik
+
+
+this method to build qt app with terminal - qmake - makefile

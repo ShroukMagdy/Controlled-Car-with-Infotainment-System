@@ -1,0 +1,124 @@
+*download QT on linux--follow the sreps in video
+https://www.youtube.com/watch?v=hQSuM1uCdXE&ab_channel=ProgrammingKnowledge
+QT5.15
+
+*blink led
+-------------
+1st method using wiringpi
+--------------------------
+*in case of git supported
+
+#clone wiring pi library
+git clone git://git.drogon.net/wiringPi
+
+*in case of apt supported
+sudo apt-get install wiringpi
+
+*for raspbian , it already installed
+
+for c code ----> gcc compiler is needed 
+ 
+Now u can write ur code:
+#include <wiringPi.h>
+#include <stdio.h>
+
+/* GPIO4 as per wiringPi, GPIO23 as per BCM, pin no.4 */
+int led_no=4;
+
+int main(){
+printf("\nhiiiiiii");
+//initialize wiringpi setup
+wiringPiSetup();
+pinMode(led_no,OUTPUT);
+
+while(1){
+digitalWrite(led_no,HIGH);
+delay(1000);
+digitalWrite(led_no,LOW);
+delay(1000);
+}
+
+//printf("ls");
+return 0;
+}
+
+note : 
+>gpio -v -- Output the current version including the board revision  of  the
+              Raspberry Pi.
+>gpio readall --   Output a table of all GPIO pins values. The values represent the actual  values  read  if  the  pin is in input mode, or the last
+value written if the pin is in output mode.
+>pinout -- 
+A  utility  for querying Raspberry Pi GPIO pin-out information. Running
+pinout on its own will output a board diagram, and GPIO header  diagram
+for the current Raspberry Pi. It is also possible to manually specify a
+revision of Pi, or (by remote_gpio) to output information about  a  re‐
+mote Pi.
+
+**wiringpi deals with pins BCM value not physical , check gpio readall
+--------------------------------------------------------------------------
+2nd method using system command
+--------------------------------
+system runs scripts in c/c++ files
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SHELLSCRIPT "\
+#! /bin/bash \n\
+cd /sys/class/gpio \n\
+echo 23 > export \n\
+cd gpio23 \n\
+sleep 1 \n\
+echo out > direction \n\
+echo 1 > value \n\
+"
+
+int main(){
+puts("execute the script");
+//puts(SHELLSCRIPT);
+puts("starting now");
+system(SHELLSCRIPT);
+
+return 0;
+}
+
+note:
+
+recall--
+ls
+cd /
+ls
+cd sys
+cd class
+cd gpio
+
+to access specific pin
+this command makes file for pin
+echo 24(any gpio pin) > export
+
+this makes folder for gpio with the pin selected
+this folder has ( direction - power , etc....)
+
+to set pin high
+(bnwr led m ela5r )
+command $echo out > direction
+by default all pins in
+
+command  $echo 1 > value
+
+**u can not export an exported pin -- so check exported ones first
+**to remove pin from exported pins
+echo <pin_no> > unexport
+also u can not unexport unexported pin
+to avoid errors 
+******************************************************
+system command 
+takes array of chars as input parameter
+so can accept scripts to run
+
+useful links:
+--------------
+https://stackoverflow.com/questions/3736210/how-to-execute-a-shell-script-from-c-in-linux
+https://www.electronicwings.com/raspberry-pi/how-to-use-wiringpi-library-on-raspberry-pi
+https://www.youtube.com/watch?v=5sfIIfbegqc&ab_channel=JackyLe
+

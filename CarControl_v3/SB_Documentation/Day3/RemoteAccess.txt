@@ -1,0 +1,36 @@
+useful links
+--------------
+the steps we followed to install remoteit on pi
+https://magpi.raspberrypi.org/articles/remote-access-your-raspberry-pi-securely
+
+video with the steps to open any os remotly
+https://remote.it/resources/blog/how-to-use-a-raspberry-pi-to-remotely-access-your-office-network/
+
+to download the app
+https://remote.it/download/
+
+to open connected devices
+https://app.remote.it/
+
+steps:
+------
+1-download remoteit on pi
+sudo apt install remoteit
+
+2-at the end of the download , there will be 3 links
+open any one
+
+3- register the pi
+add ssh,http,vnc services
+
+4- open https://app.remote.it/
+now just connect power to pi and try to connect
+vnc connecion through any device will give u the last things were opened
+http connection shows the web pages running through /etc/www/html -- index.html
+
+notes:
+u can connect to ssh or http direct 
+but to use vnc connection , u have to open ur pi and run 
+vncserver 
+
+

@@ -1,0 +1,24 @@
+Blink led using Apahe server
+------------------------------
+1- establish wifi connection (use the other readme"WIFI")
+
+2- download apache
+sudo apt-get update
+sudo apt-get apache2 -y
+
+test it by writing ip of pi in any browser
+to get ip of pi using ping
+
+3- download php
+sudo apt-get install php libapache2-mod-php -y
+
+in index.php
+<?php phpinfo(); ?>
+
+4- change the content of file to LedBlink.php
+so u can make a page with 2 buttons on/off to control led on pi
+*note  no of gpio pin is the no of gpio using pinout
+
+useful links:
+--------------
+https://iotdesignpro.com/projects/control-led-with-raspberry-pi-webserver-using-apache

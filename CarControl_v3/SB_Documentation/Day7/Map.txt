@@ -1,0 +1,18 @@
+Qpainter , Qgraphics for scrolling
+
+links:
+-----
+https://www.bogotobogo.com/Qt/Qt5_QGraphicsView_QGraphicsScene.php
+
+note: 
+text is movable()
+
+https://stackoverflow.com/questions/7138113/qt-graphics-view-show-image-widget
+
+
+----------------------------------------
+pointer to function
+
+    //array of pointers to functions for movement
+    void (MainWindow::*Move_Functions[6])();
+    int **path_array_ptr[10];

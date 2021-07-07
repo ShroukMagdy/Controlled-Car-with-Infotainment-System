@@ -1,0 +1,56 @@
+to establish wifi connection on pi3:
+------------------------------------
+1- enable ssh by making file "ssh" in boot
+2- check connections by
+iwlist wlan0 scan
+if listed so connection is working
+if not continue with the steps
+
+3- list using rfkill to check if the connection is blocked
+rfkill list all
+
+if wlan is blocked, unblock by
+sudo rfkill unblock [no of network]
+
+4- add ur network
+cd /etc/wpa_supplicant
+sudo nano wpa_supplicant.conf
+country=GB
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+ssid="Name"
+psk="pass"
+} 
+
+5- sudo reboot
+
+**preferred name of connection not to be with spaces or hidden :(
+another commands just in case
+
+sudo ifconfig wlan0 up
+----------------------------------------------------------------------
+not tested
+-----------
+for multiple networks
+network={
+    ssid="SCHOOLS NETWORK NAME"
+    psk="SCHOOLS PASSWORD"
+    id_str="school"
+}
+
+network={
+    ssid="HOME NETWORK NAME"
+    psk="HOME PASSWORD"
+    id_str="home"
+}
+
+note: for ubunto not pi , u can list with iwlist and
+nmcli device wifi list
+------------------------------------------------------------------------
+useful links
+-------------
+https://raspberrypi.stackexchange.com/questions/11631/how-to-setup-multiple-wifi-networks
+
+https://www.circuitbasics.com/how-to-set-up-wifi-on-the-raspberry-pi-3/

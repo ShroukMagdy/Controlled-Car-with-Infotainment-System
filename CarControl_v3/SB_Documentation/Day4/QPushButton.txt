@@ -1,0 +1,59 @@
+*when app is executing in qt , its path is in the build folder
+use this to print current path
+qDebug() <<QApplication::applicationFilePath();
+
+to change img of button
+-------------------------
+ui->LEFT_B->setIcon(QIcon("../images/leftimg.png"));
+ui->LEFT_B->setIconSize(QSize(65,65));
+
+to set focus on pressed button
+-------------------------------
+ui->UP_B->setFocus();
+
+to select and make button dark as pressed
+------------------------------------------
+u have to select checkable option for button or setcheckable method
+ui->UP_B->setChecked(true);
+
+pushbutton control
+-------------------
+use connect if u r using mouse
+
+use keypress and keyrelease for keyboard button --> include QKEYEVENT
+the methods are overridden
+void keyPressEvent(QKeyEvent *e);
+void keyReleaseEvent(QKeyEvent *e);
+
+control the long press using timer
+----------------------------------
+reset flag
+when key is pressed
+start timer (timer used as watchdog)
+in qt if button is pressed , queue of press and release is generated
+so cancel the unreal releases
+check if flag is set
+
+if timeout ---> real release - flag is set - as no press to refresh the timer
+and do action of real release
+
+if another key is pressed ---> flag is set
+but there is no queue of the 1st button with press and release
+so wait till final release - rela release  - flag is set - as no press to refresh the timer
+and do action of real release
+
+Notes:
+------
+if use the arrows in QTapp --- for navigation ony
+space press -- press on current key with focus
+
+
+useful links:
+--------------
+https://www.youtube.com/playlist?list=PL2D1942A4688E9D63
+
+https://www.youtube.com/playlist?list=PL1FgJUcJJ03ve3jJwTocGkxTsGYMni5qD
+same as above but in 5 hrs :(
+https://www.youtube.com/watch?v=Et_bgnJ_Hhg&ab_channel=ParwizForogh
+
+

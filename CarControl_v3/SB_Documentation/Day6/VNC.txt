@@ -1,0 +1,4 @@
+https://learn.adafruit.com/adafruit-raspberry-pi-lesson-7-remote-control-with-vnc/running-vncserver-at-startup
+
+*there will be error mag whenever u start the pi, cuz of authentication
+....ignore it

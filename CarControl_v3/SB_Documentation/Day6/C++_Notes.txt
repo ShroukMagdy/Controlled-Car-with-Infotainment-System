@@ -1,0 +1,9 @@
+pointers to functions
+http://umich.edu/~eecs381/handouts/Pointers_to_memberfuncs.pdf
+
+//declare
+void (MainWindow::*Move_Functions[6])();
+//define
+ Move_Functions[0]= &MainWindow::Move_Forward;
+//call
+(this->*Move_Functions[Home_Path[counter][0]])();
