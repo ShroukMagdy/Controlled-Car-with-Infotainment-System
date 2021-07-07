@@ -339,29 +339,29 @@ Check if gstreamer libraries is downloaded, if not:
 #### Used Classes :
 \#include \<QMainWindow\>
 
-\#include <QMediaPlayer>
+\#include \<QMediaPlayer\>
 
-#include <QMediaPlaylist>
+\#include \<QMediaPlaylist\>
 
-#include <QTimer>
+\#include \<QTimer\>
 
-#include <QString>
+\#include \<QString\>
 
-#include <QSlider>
+\#include \<QSlider\>
 
-#include <QScrollArea>
+\#include \<QScrollArea\>
 
-#include <QVBoxLayout>
+\#include \<QVBoxLayout\>
 
-#include <QPushButton>
+\#include \<QPushButton\>
 
-#include <QComboBox>
+\#include \<QComboBox\>
 
-#include <QSplashScreen>
+\#include \<QSplashScreen\>
 
-#include <QVideoWidget>
+\#include \<QVideoWidget\>
 
-#include <QCamera>
+\#include \<QCamera\>
 ## Hardware Components
 - Raspberry Pi
 
