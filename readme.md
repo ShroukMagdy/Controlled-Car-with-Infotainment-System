@@ -337,7 +337,7 @@ Check if gstreamer libraries is downloaded, if not:
 
 *$sudo apt-get install gstreamer1.0-tools*
 #### Used Classes :
-\#include <QMainWindow>
+\[#]include <QMainWindow>
 
 \#include <QMediaPlayer>
 
