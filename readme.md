@@ -10,63 +10,63 @@
 
 June 2021
 
-` ` [**Introduction](#_c788hrhn2jkd)**	 
+` ` [**Introduction](#_c788hrhn2jkd) 
 
-[Description](#_z5p5vbmputsn)	 PAGEREF \_z5p5vbmputsn \h 3
+[Description](#_z5p5vbmputsn)
 
-[Features](#_7tn50cqz35fx)	 PAGEREF \_7tn50cqz35fx \h 3
+[Features](#_7tn50cqz35fx)
 
-[Car Control GUI](#_z85x6zg3u9ic)	 PAGEREF \_z85x6zg3u9ic \h 3
+[Car Control GUI](#_z85x6zg3u9ic)
 
-[Infotainment GUI](#_at1su2x6skf5)	 PAGEREF \_at1su2x6skf5 \h 3
+[Infotainment GUI](#_at1su2x6skf5)
 
-[**Car control](#_6l8xnyiuje9l)**	 PAGEREF \_6l8xnyiuje9l \h **3**
+[**Car control](#_6l8xnyiuje9l)
 
-[Setup and configuration](#_b4pop8h0y0e)	 PAGEREF \_b4pop8h0y0e \h 4
+[Setup and configuration](#_b4pop8h0y0e)
 
-[Hardware Components](#_pgvlbustzgc4)	 PAGEREF \_pgvlbustzgc4 \h 5
+[Hardware Components](#_pgvlbustzgc4)
 
-[Schematic Diagram](#_fkq5er55uvb4)	 PAGEREF \_fkq5er55uvb4 \h 6
+[Schematic Diagram](#_fkq5er55uvb4)
 
-[Manual mode](#_rdkyy9spemy2)	 PAGEREF \_rdkyy9spemy2 \h 7
+[Manual mode](#_rdkyy9spemy2)
 
-[Self driving mode](#_332yboyp6pxl)	 PAGEREF \_332yboyp6pxl \h 8
+[Self driving mode](#_332yboyp6pxl)
 
-[Algorithm](#_ib3vwgbib6ci)	 PAGEREF \_ib3vwgbib6ci \h 9
+[Algorithm](#_ib3vwgbib6ci)
 
-[Steps:](#_d3rpz543m5tz)	 PAGEREF \_d3rpz543m5tz \h 9
+[Steps:](#_d3rpz543m5tz)
 
-[**Infotainment system](#_t2km524ltydq)**	 PAGEREF \_t2km524ltydq \h **11**
+[**Infotainment system](#_t2km524ltydq)
 
-[What is In-vehicle infotainment?](#_30j0zll)	 PAGEREF \_30j0zll \h 11
+[What is In-vehicle infotainment?](#_30j0zll)
 
-[Setting the required Raspbian image configurations](#_sstxkfujxz9p)	 PAGEREF \_sstxkfujxz9p \h 12
+[Setting the required Raspbian image configurations](#_sstxkfujxz9p)
 
-[Configure LCD with Raspberry Pi](#_3rdcrjn)	 PAGEREF \_3rdcrjn \h 13
+[Configure LCD with Raspberry Pi](#_3rdcrjn)
 
-[Configure Camera with Raspberry Pi](#_trwy6whdfbt)	 PAGEREF \_trwy6whdfbt \h 13
+[Configure Camera with Raspberry Pi](#_trwy6whdfbt)
 
-[Setting QT Platform:](#_yiilrv7mxalv)	 PAGEREF \_yiilrv7mxalv \h 14
+[Setting QT Platform:](#_yiilrv7mxalv)
 
-[What is Qt ?](#_qgxt4tbrpyl8)	 PAGEREF \_qgxt4tbrpyl8 \h 14
+[What is Qt ?](#_qgxt4tbrpyl8)
 
-[Qt for Embedded Linux](#_26in1rg)	 PAGEREF \_26in1rg \h 14
+[Qt for Embedded Linux](#_26in1rg)
 
-[Signals & Slots](#_lnxbz9)	 PAGEREF \_lnxbz9 \h 15
+[Signals & Slots](#_lnxbz9)
 
-[Installed Libraries:](#_chbm2tmhyhjr)	 PAGEREF \_chbm2tmhyhjr \h 16
+[Installed Libraries:](#_chbm2tmhyhjr)
 
-[Used Classes :](#_1u7ih3yeel8d)	 PAGEREF \_1u7ih3yeel8d \h 16
+[Used Classes :](#_1u7ih3yeel8d)
 
-[Hardware Components](#_9surg09csf77)	 PAGEREF \_9surg09csf77 \h 16
+[Hardware Components](#_9surg09csf77)
 
-[Entertainment Services](#_p3a1kllpv29g)	 PAGEREF \_p3a1kllpv29g \h 19
+[Entertainment Services](#_p3a1kllpv29g)
 
-[Information Services](#_3nlwsagmgfnr)	 PAGEREF \_3nlwsagmgfnr \h 20
+[Information Services](#_3nlwsagmgfnr)
 
-[**References](#_mtq4bcrvnix8)**	 PAGEREF \_mtq4bcrvnix8 \h **21**
+[**References](#_mtq4bcrvnix8)
 
-[**Future](#_ff4xucjqa9in)**	 PAGEREF \_ff4xucjqa9in \h **21**
+[**Future](#_ff4xucjqa9in)
 
 #
 # Introduction
